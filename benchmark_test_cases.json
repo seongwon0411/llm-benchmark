@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "description": "로컬 LLM 평가용 테스트 케이스. stage1=48GB 후보군 스크리닝, stage2=메인/서브 에이전트 역할별 평가",
+    "quantization_default": "Q4_K_M",
+    "repeat_per_case": 5
+  },
+  "cases": [
+    {
+      "id": "code_001",
+      "stage": ["stage1", "stage2"],
+      "role": ["main", "coder"],
+      "category": "coding_agentic",
+      "prompt": "다음 요구사항으로 Python 함수를 작성해줘. 요구사항: 리스트를 입력받아 중복을 제거하되 원래 순서는 유지하는 함수 `dedup_ordered(items: list) -> list`. 타입 힌트와 docstring 포함, 예외 처리(입력이 리스트가 아니면 TypeError) 포함. 코드만 출력.",
+      "rubric": {
+        "pass_criteria": ["함수가 실제로 실행 가능한 문법", "중복 제거 + 순서 유지 로직 정확", "TypeError 처리 존재", "docstring 존재"],
+        "scoring": "4개 항목 중 충족 개수 / 4"
+      }
+    },
+    {
+      "id": "code_002",
+      "stage": ["stage1", "stage2"],
+      "role": ["main", "coder"],
+      "category": "coding_agentic",
+      "prompt": "아래 코드에 버그가 있다. 버그를 찾아 설명하고 수정된 전체 코드를 제시해라.\n\n```python\ndef binary_search(arr, target):\n    low, high = 0, len(arr)\n    while low < high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid\n        else:\n            high = mid\n    return -1\n```",
+      "rubric": {
+        "pass_criteria": ["low = mid로 인한 무한루프 가능성을 정확히 지적", "high 초기값이 len(arr)인 것과 관련된 인덱싱 이슈 언급(선택)", "수정 코드가 실제로 동작"],
+        "scoring": "무한루프 원인 정확히 지적(2점) + 수정코드 정상동작(2점) / 4"
+      }
+    },
+    {
+      "id": "code_003",
+      "stage": ["stage1"],
+      "category": "coding_agentic",
+      "prompt": "멀티스레드 환경에서 안전한 카운터 클래스를 Python으로 구현해줘 (threading.Lock 사용). 사용 예시 코드도 함께.",
+      "rubric": {
+        "pass_criteria": ["Lock을 increment 구간에 정확히 적용", "race condition 방지 로직 타당", "사용 예시가 실제 실행 가능"],
+        "scoring": "3개 항목 충족 개수 / 3"
+      }
+    },
+    {
+      "id": "reason_001",
+      "stage": ["stage1", "stage2"],
+      "role": ["main"],
+      "category": "reasoning",
+      "prompt": "3명의 사람 A, B, C가 있다. A는 항상 진실만 말하고, B는 항상 거짓만 말하고, C는 상황에 따라 다르다. A가 \"B는 거짓말쟁이다\"라고 말했다. B가 \"C는 진실만 말한다\"라고 말했다. 이 정보만으로 C가 진실을 말했는지 알 수 있는가? 근거와 함께 답하라.",
+      "rubric": {
+        "pass_criteria": ["A는 진실만 하므로 B가 거짓말쟁이라는 것은 사실로 확정", "B는 거짓만 하므로 B의 발언은 거짓 → C가 진실만 말한다는 것은 거짓", "따라서 C가 '항상' 진실만 말하는 것은 아니라는 결론 도출 (이번 발언이 거짓이라는 뜻은 아님에 유의)"],
+        "scoring": "논리 사슬을 정확히 따라갔는지 3점 만점"
+      }
+    },
+    {
+      "id": "reason_002",
+      "stage": ["stage1", "stage2"],
+      "role": ["main", "reviewer"],
+      "category": "reasoning",
+      "prompt": "어떤 함수가 프로덕션에서 간헐적으로 실패한다. 재현율은 0.1% 미만이고, 로그에는 타임아웃 에러만 남아있다. 이 문제를 디버깅하기 위한 접근 순서를 5단계로 제시하라.",
+      "rubric": {
+        "pass_criteria": ["단계가 논리적 순서(재현 → 격리 → 가설수립 → 검증 → 수정)를 따르는지", "간헐적/저빈도 이슈에 맞는 구체적 도구(분산 트레이싱, 로깅 강화 등) 언급"],
+        "scoring": "5점 만점, 구체성+순서 타당성"
+      }
+    },
+    {
+      "id": "korean_001",
+      "stage": ["stage1"],
+      "category": "korean_nlu",
+      "prompt": "다음 문장을 자연스러운 존댓말 이메일로 바꿔줘: \"내일 회의 시간 좀 옮겨줄 수 있어? 3시에 다른 일정이 생겼어.\" 수신자는 팀장님.",
+      "rubric": {
+        "pass_criteria": ["어색한 번역투 없음", "비즈니스 메일 격식 유지", "원래 의미(시간 변경 요청, 사유) 보존"],
+        "scoring": "5점 척도 수동 채점"
+      }
+    },
+    {
+      "id": "korean_002",
+      "stage": ["stage1"],
+      "category": "korean_nlu",
+      "prompt": "아래 한국어 코드 주석이 있는 함수를 영어 주석으로 바꾸되, 뉘앙스를 정확히 옮겨줘.\n\n```python\ndef process(data):\n    # 데이터가 비어있으면 조용히 무시 (에러를 던지지 않음 - 정책상 결정됨)\n    if not data:\n        return None\n    ...\n```",
+      "rubric": {
+        "pass_criteria": ["'조용히 무시'와 '정책상 결정됨'의 뉘앙스가 영어에서도 살아있는지"],
+        "scoring": "5점 척도 수동 채점"
+      }
+    },
+    {
+      "id": "tool_001",
+      "stage": ["stage1", "stage2"],
+      "role": ["main", "planner"],
+      "category": "tool_calling",
+      "prompt": "너는 다음 도구를 쓸 수 있다: `search_file(query: str)`, `run_command(cmd: str)`, `write_file(path: str, content: str)`. 사용자 요청: \"프로젝트에서 'TODO'가 포함된 모든 파일을 찾고, 결과를 todo_list.txt에 저장해줘.\" 이 요청을 처리하기 위한 도구 호출을 JSON 배열로만 출력해라. 형식: [{\"tool\": \"...\", \"args\": {...}}, ...]",
+      "rubric": {
+        "pass_criteria": ["출력이 유효한 JSON", "search_file 호출에 적절한 query(TODO)", "write_file 호출에 todo_list.txt 경로 사용", "불필요한 자연어 설명 없이 JSON만 출력했는지"],
+        "scoring": "JSON 파싱 성공 여부(필수) + 4개 항목 중 충족 개수"
+      }
+    },
+    {
+      "id": "tool_002",
+      "stage": ["stage2"],
+      "role": ["main", "planner"],
+      "category": "tool_calling",
+      "prompt": "너는 멀티 에이전트 오케스트레이터다. 서브 에이전트 목록: coder, reviewer, tester. 사용자 요청: \"로그인 API에 rate limiting을 추가해줘.\" 이 작업을 서브 에이전트에게 어떤 순서로, 어떤 지시사항과 함께 위임할지 JSON으로 계획을 세워라. 형식: [{\"agent\": \"...\", \"task\": \"...\", \"depends_on\": [...]}]",
+      "rubric": {
+        "pass_criteria": ["coder → tester → reviewer 또는 합리적 순서", "depends_on 관계가 논리적", "각 task 지시문이 구체적(모호하지 않음)"],
+        "scoring": "4점 만점"
+      }
+    },
+    {
+      "id": "long_ctx_001",
+      "stage": ["stage1", "stage2"],
+      "role": ["main"],
+      "category": "long_context",
+      "prompt": "[[이 자리에 32K~64K 토큰 분량의 실제 프로젝트 코드베이스 또는 로그 파일을 붙여넣고]] 마지막 부분에: \"위 내용 중 'CRITICAL_MARKER_7842'라는 문자열이 포함된 줄을 찾아 그 앞뒤 3줄과 함께 인용해라.\" (needle-in-haystack 방식, 매 테스트마다 마커 문자열과 위치를 랜덤화할 것)",
+      "rubric": {
+        "pass_criteria": ["마커를 정확히 찾음", "앞뒤 문맥이 실제 원문과 일치(환각 없음)"],
+        "scoring": "pass/fail, 5회 반복 중 성공률(%)"
+      }
+    },
+    {
+      "id": "plan_001",
+      "stage": ["stage2"],
+      "role": ["main"],
+      "category": "planning",
+      "prompt": "사용자 요청: \"우리 쇼핑몰 사이트 결제 실패율이 갑자기 늘었어. 원인 파악하고 고쳐줘.\" 이 요청을 실행 가능한 서브태스크 목록으로 분해해라. 각 서브태스크는 담당 에이전트(coder/reviewer/tester/researcher 중)와 우선순위를 명시.",
+      "rubric": {
+        "pass_criteria": ["원인 조사(로그/모니터링 확인)가 첫 단계로 오는지", "성급하게 코드 수정부터 하지 않는지", "각 서브태스크가 실행 가능한 크기로 쪼개졌는지"],
+        "scoring": "5점 만점"
+      }
+    },
+    {
+      "id": "review_001",
+      "stage": ["stage2"],
+      "role": ["reviewer"],
+      "category": "code_review",
+      "prompt": "다음 PR 코드를 리뷰해라. 보안/성능/가독성 이슈가 있으면 지적하고, 없으면 없다고 말해라.\n\n```python\ndef get_user(request):\n    user_id = request.GET.get('id')\n    query = f\"SELECT * FROM users WHERE id = {user_id}\"\n    return db.execute(query)\n```",
+      "rubric": {
+        "pass_criteria": ["SQL Injection 취약점을 반드시 지적", "파라미터 바인딩 대안 제시", "불필요한 지적(false positive) 최소화"],
+        "scoring": "SQLi 발견(필수 3점) + 대안 제시(1점) / 4"
+      }
+    },
+    {
+      "id": "test_001",
+      "stage": ["stage2"],
+      "role": ["tester"],
+      "category": "test_generation",
+      "prompt": "다음 함수에 대한 pytest 단위 테스트를 작성해라. 정상 케이스, 엣지 케이스(빈 입력), 예외 케이스를 모두 포함해라.\n\n```python\ndef divide(a: float, b: float) -> float:\n    if b == 0:\n        raise ValueError(\"division by zero\")\n    return a / b\n```",
+      "rubric": {
+        "pass_criteria": ["정상 케이스 테스트 존재", "b=0 예외 케이스 테스트(pytest.raises) 존재", "실제 pytest로 실행 가능한 문법"],
+        "scoring": "3개 항목 충족 개수 / 3"
+      }
+    },
+    {
+      "id": "summary_001",
+      "stage": ["stage2"],
+      "role": ["researcher"],
+      "category": "summarization",
+      "prompt": "[[여기에 3000~5000 단어 분량의 기술 문서(예: 라이브러리 changelog, RFC)를 붙여넣고]] 위 문서를 핵심 변경사항 5줄 이내로 한국어 요약해라. 숫자/버전 정보는 정확히 유지해야 함.",
+      "rubric": {
+        "pass_criteria": ["숫자/버전 왜곡 없음(환각 검증)", "5줄 이내 준수", "핵심 변경사항 누락 없음"],
+        "scoring": "5점 만점"
+      }
+    }
+  ]
+}
