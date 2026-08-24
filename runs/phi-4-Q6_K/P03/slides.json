@@ -1,0 +1,37 @@
+{
+    "slides": [
+        {
+            "title": "Incident Review Presentation",
+            "subtitle": "Overview of the Event and Actions"
+        },
+        {
+            "title": "Timeline Visualization",
+            "content": "Visual representation of key events during the incident.",
+            "takeaway": "Visual timeline chart."
+        },
+        {
+            "title": "Direct Triggers",
+            "content": "Highlight '고온 경고' and '91.1C' as direct triggers.",
+            "takeaway": "Identification of immediate causes."
+        },
+        {
+            "title": "Root Cause Uncertainty",
+            "content": "Discuss uncertainty around '분진이 근본원인으로 확정되었다' due to missing vibration data.",
+            "takeaway": "Acknowledge uncertainties in root cause analysis."
+        },
+        {
+            "title": "Action Plan Table",
+            "content": [
+                {"action": "흡입구 청소주기 4주 준수", "owner": "설비팀", "due": "즉시"},
+                {"action": "진동센서 수집 누락 복구", "owner": "자동화팀", "due": "2주"},
+                {"action": "과열 RCA 재검증", "owner": "품질팀", "due": "1주"}
+            ],
+            "takeaway": "Clear action items with assigned owners and deadlines."
+        },
+        {
+            "title": "Decision and Recommendations",
+            "content": "Emphasize the importance of addressing missing data and ensuring compliance with maintenance schedules.",
+            "takeaway": "Summarize findings and provide recommendations."
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+  "old": {
+    "total_units": 1000,
+    "passed_units": 960,
+    "scrap_cost_won_per_unit": 18000,
+    "yield_rate": 0.96
+  },
+  "new": {
+    "total_units": 1000,
+    "passed_units": 985,
+    "scrap_cost_won_per_unit": 18000,
+    "yield_rate": 0.985
+  }
+}

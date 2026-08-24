@@ -1,0 +1,34 @@
+{
+    "yearly_summary": [
+        {
+            "year": 2024,
+            "units_inspected": 2200,
+            "defects": 118,
+            "downtime_min": 300
+        },
+        {
+            "year": 2025,
+            "units_inspected": 2400,
+            "defects": 115,
+            "downtime_min": 260
+        },
+        {
+            "year": 2026,
+            "units_inspected": 1250,
+            "defects": 39,
+            "downtime_min": 160
+        }
+    ],
+    "defect_trend": {
+        "2024": 118,
+        "2025": 115,
+        "2026": 39
+    },
+    "downtime_trend": {
+        "2024": 300,
+        "2025": 260,
+        "2026": 160
+    },
+    "pilot_comparison": {
+        "pilot": {
+            "defects": 

@@ -1,0 +1,4 @@
+year,line,units_inspected,defects,downtime_min,pilot
+2024,AB,2200,118,300,0
+2025,AB,2400,115,260,0
+2026,AB,1250,39,160,2

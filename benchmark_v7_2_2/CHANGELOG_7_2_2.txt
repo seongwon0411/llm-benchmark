@@ -1,0 +1,11 @@
+Local LLM Work Benchmark v7.2.2
+
+Infrastructure-only reliability release over v7.2.1. Task prompts, fixtures, selected models, scoring weights, context length, max_agent_steps, and PPT renderer/grader semantics are unchanged.
+
+Fixes:
+1. Protected-test tamper detection ignores __pycache__, .pytest_cache, *.pyc/*.pyo and .coverage. v7.2.1 falsely marked models that merely ran pytest as test tampering.
+2. Windows UTF-8 robustness: Python subprocesses force PYTHONUTF8/PYTHONIOENCODING=utf-8; console diagnostics use non-crashing encoding error handling.
+3. Agent history is deterministically compacted before requests to prevent 16K context-overflow infrastructure failures while full tool results remain in _transcript.json.
+4. Report ERROR counting uses parameterized SQL. v7.2.1 accidentally interpreted "ERROR" as the existing `error` column in SQLite, producing ERROR=0 and complete=NO.
+5. task_scores.csv now includes all runs, including ERROR rows as total=0.
+6. Added migrate-v721 / recover_from_v721.ps1 to preserve DONE work, regrade Coding with corrected tamper logic, retry only proven infrastructure-corrupted v7.2.1 runs, then Judge/report.

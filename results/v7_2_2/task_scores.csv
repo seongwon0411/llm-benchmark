@@ -1,0 +1,1094 @@
+model,task_id,role,hard,judge,total,reason,status,error
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; ================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\DeepSeek-R1-0528-Qwen3-8B-Q4_K_M\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; 
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+>       assert len(tr)==3 and len(va)==2 and len(te)==1
+E       assert (3 == 3 and 3 == 2)
+E        +  where 3 = len(        date  v\n0 2026-02-01  0\n1 2026-02-02  1\n2 2026-02-03  2)
+E        +  and   3 = len(        date  v\n2 2026-02-03  2\n3 2026-02-04  3\n4 2026-02-05  4)
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2, 3] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.30s
+",DONE,
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; mtbf.png: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: yield_chart.png: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,K01,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: review.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,K02,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: security_review.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,K03,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: ppt_review.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,R01,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: research_brief.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,R02,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: procurement_recommendation.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,R03,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_brief.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,W02,Writer,62.5,75.0,69.375,"required 3/6; forbidden=none; chars=385 | JUDGE: 타임라인과 영향이 분리되지 않음(이상 징후 섹션에 타임라인과 영향이 혼합됨). 직접 원인/프로세스 원인 구분 불명확. 재발방지 조치의 owner/검증 방법이 생략됨. 다만, 비난 없는 전문적 문체와 숫자 정확성은 준수함.",DONE,
+DeepSeek-R1-0528-Qwen3-8B-Q4_K_M,W03,Writer,100.0,85.0,91.75,"required 7/7; forbidden=none; chars=812 | JUDGE: Revised SOP addresses audit findings (ticketing, role separation, backup checks, rollback clarity) and policy requirements. Audit findings section directly maps solutions to each issue. Checklist structure exists but lacks explicit phase differentiation (pre-execution/verification/rollback). Emergency procedure is mentioned but not distinctly separated from general process. Responsibility assignment is implied but not explicitly detailed in steps.",DONE,
+Devstral-Small-2505-Q4_K_M,C01,Coding,100.0,,100.0,"pytest passed=9 failed=0; tampered=[]; .........                                                                [100%]
+9 passed in 0.02s
+",DONE,
+Devstral-Small-2505-Q4_K_M,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.25s
+",DONE,
+Devstral-Small-2505-Q4_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; test_failure_not_cached():
+        state={'n':0}
+        def tr(k):
+            state['n']+=1
+            return (503,None) if state['n']<=2 else (200,'recovered')
+        c=ApiClient(tr,max_retries=1)
+>       with pytest.raises(RuntimeError): c.get('x')
+E       Failed: DID NOT RAISE RuntimeError
+
+C:\AI\Benchmark_v7_2_1\runs\Devstral-Small-2505-Q4_K_M\C03\tests\test_api_client.py:37: Failed
+_________________________ test_zero_retries_503_once __________________________
+
+    def test_zero_retries_503_once():
+        calls=[]
+        def tr(k): calls.append(k); return 503,None
+>       with pytest.raises(RuntimeError): ApiClient(tr,max_retries=0).get('x')
+E       Failed: DID NOT RAISE RuntimeError
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:21: Failed
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_500_retried_then_success - AssertionErr...
+FAILED tests\test_api_client.py::test_429_retried - AssertionError: assert No...
+FAILED tests\test_api_client.py::test_failure_not_cached - Failed: DID NOT RA...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_zero_retries_503_once
+4 failed, 4 passed in 0.04s
+",DONE,
+Devstral-Small-2505-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+Devstral-Small-2505-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+Devstral-Small-2505-Q4_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: yield_chart.png: missing
+Devstral-Small-2505-Q4_K_M,K01,Critic,92.5,95.0,93.375,"required 5/6; forbidden=none; chars=887 | JUDGE: 실제 산출물은 원자료에 기반해 중대한 사실오류(전체 공장 불량률 오인, AI 단일 원인 주장, 즉시 확대 권고)를 정확히 탐지했으며, 각 이슈의 심각도와 수정안이 명확하다. 2025년 대비 50% 감소 주장에 대한 수치적 오류는 '불량률 계산 오류' 항목에서 간접적으로 반영되어 완전성 확보. 단계적 개선 제안과 근거 명시로 실행 가능성 확보.",DONE,
+Devstral-Small-2505-Q4_K_M,K02,Critic,88.8,95.0,90.97,"required 3/4; forbidden=none; chars=1642 | JUDGE: The security_review.md identifies four distinct vulnerabilities (hardcoded password, SQL injection, input validation, logging) with realistic scenarios and specific recommendations. All issues are directly derived from auth.py's code flaws. The severity ratings align with the risks (Critical for SQLi, High for hardcoded secrets). No external assumptions were made beyond the provided files. Minor improvement could be adding exact validation rules for 'input validation' issue.",DONE,
+Devstral-Small-2505-Q4_K_M,K03,Critic,85.0,75.0,81.5,"required 5/5; forbidden=none; chars=465 | JUDGE: 실제 산출물은 사실오류(3.1% 수치/ROI 계산 미완료/검사시간 단축 근거 불명확)와 의사결정 리스크(6라인 확대 전 검증 생략)를 정확히 지적했으나, 시각·가독성 문제(차트 부재/디자인 점수 75)로 인해 정보전달 효과성이 제한됨. [PPT AUDIT]의 디자인 점수와 차트 누락이 반영되어 75~89 범위에 해당.",DONE,
+Devstral-Small-2505-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: empty/incomplete table; factory_ai_review.pptx: too many sparse slides (0.571)
+Devstral-Small-2505-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+Devstral-Small-2505-Q4_K_M,P03,PPT,47.9,50.0,48.32,"open=OK; slides=6/6; required=4/6; visuals=0/1,charts=0/0,tables=0/1; objective=11.0/40; forbidden=분진이 근본원인으로 확정; design=81.0/100 (weighted 20.2/25) sparse=[4] empty_tables=0 dict_leaks=0; judge_cap=50 | JUDGE: [objective cap 50; raw judge 65.0] PPT AUDIT indicates critical issues: timeline_events_present (0/5) and action_rows_complete (0/3) failures. While root cause uncertainty is addressed, lack of visual timelines and incomplete action tables reduce decision utility. Sparse slide 4 and missing charts lower information density despite acceptable design score. Forbidden phrase '분진이 근본원인으로 확정' is avoided per audit.",DONE,
+Devstral-Small-2505-Q4_K_M,R01,Research,91.0,95.0,92.4,"required 4/5; citations 12/4; forbidden=none; chars=747 | JUDGE: 최신 공고 우선순위를 정확히 판단하고, 사전안내와 확정공고의 예산/마감일 차이를 명시적으로 충돌 정보로 분리. 모든 주장에 원자료 인용(예: [final_notice.txt:L4])으로 연결. 의사결정 요건(기술성 평가 기준, 컨소시엄 조건 등)은 완전히 정리했으나, 리스크 항목(예: 예산 증액의 실행 가능성, 마감일 연장의 전략적 영향)은 원자료에 없어 생략. 산출물에 없는 표/차트는 포함되지 않음.",DONE,
+Devstral-Small-2505-Q4_K_M,R02,Research,100.0,95.0,98.25,"required 6/6; citations 12/5; forbidden=none; chars=911 | JUDGE: 모든 벤더의 필수조건 검증이 요구사항과 일치하며, 2년 총비용 계산 정확. Vendor A와 C의 탈락 사유가 구체적 인용(예: [vendor_A.txt:L5], [vendor_C.txt:L4])으로 연결됨. Vendor B의 추천 근거도 모든 조건 충족을 명시. 산출물에 없는 시각요소/표 없음. 단, 'SLA 99.90% 이상'의 경우 Vendor B가 정확히 기준선과 같으나 '이상'이라는 표현에 대한 약간의 해석 여지가 있음.",DONE,
+Devstral-Small-2505-Q4_K_M,R03,Research,91.0,95.0,92.4,"required 4/5; citations 13/5; forbidden=none; chars=769 | JUDGE: 타임라인은 원자료 기반 정확히 구성되었으며, 직접 트리거와 근본원인 구분이 명확합니다. 확인 불가능한 항목에 대한 누락데이터 표현도 적절합니다. 가능한 근본원인을 복수로 제시하고, 다음 검증조치는 원자료 기반 논리적 추론으로 구성되었습니다. 다만 '베어링 상태 점검 및 기록 시스템 개선'은 manual.txt/maintenance_note.txt에 명시된 내용과 직접적인 연관성이 약간 모호한 점이 있습니다.",DONE,
+Devstral-Small-2505-Q4_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+Devstral-Small-2505-Q4_K_M,W02,Writer,85.0,85.0,85.0,"required 6/6; forbidden=none; chars=633 | JUDGE: 타임라인과 영향 섹션이 명확히 분리되었고, 직접 원인과 근본원인을 구분하여 기술함. 확인되지 않은 수치는 포함하지 않음. 다만 재발방지 조치에 책임자(owner) 및 검증 방법이 명시되지 않아 일부 수정 필요. 전문적 문체 유지됨.",DONE,
+Devstral-Small-2505-Q4_K_M,W03,Writer,78.6,85.0,82.12,"required 6/7; forbidden=none; chars=399 | JUDGE: 일반/긴급 변경 절차 분리 및 단계 명확화(사전/실행/검증/롤백)는 충분히 반영됨. 감사 지적(요청 기록, 승인자 분리, 백업 확인, 롤백 책임)은 정책 요구사항에 따라 대응되었으나, 긴급 변경의 '사후승인 기한'은 24시간 명시로 해결했지만 '사전 백업 증적'은 단계별 체크리스트 형식으로 구체화되지 않음. 책임 흐름은 명확하지만, 롤백 기준이 '문제 발생 시'라는 모호한 표현 사용.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,C01,Coding,88.9,,88.9,"pytest passed=8 failed=1; tampered=[]; ..F......                                                                [100%]
+================================== FAILURES ===================================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\Ministral-3-3B-Instruct-2512-Q4_K_M\C01\tests\test_pricing.py:11: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+1 failed, 8 passed in 0.04s
+",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,C02,Coding,0.0,,0.0,"pytest passed=0 failed=1; tampered=[]; turn _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1206: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1178: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1149: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+..\..\..\.venv\Lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:2: in <module>
+    from pipeline import make_feature, split_time
+E     File ""C:\AI\Benchmark_v7_2_2\runs\Ministral-3-3B-Instruct-2512-Q4_K_M\C02\pipeline.py"", line 6
+E       out['ma'] = out['value'].rolling(window, center=False, min_periods=1).mean()    return out
+E                                                                                       ^^^^^^
+E   SyntaxError: invalid syntax
+=========================== short test summary info ===========================
+ERROR tests\test_pipeline.py
+ERROR ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 0.37s
+",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,C03,Coding,62.5,,62.5,"pytest passed=5 failed=3; tampered=[];       return self.cache[key]
+    
+        for attempt in range(self.max_retries + 1):  # max_retries + 1번 시도 (재시도 포함)
+            try:
+                status, data = self.transport(key)
+                if status >= 400 and status < 500:  # 4xx는 재시도하지 않음
+                    raise RuntimeError(f'HTTP {status}')
+                elif status >= 500:  # 5xx는 재시도 대상
+                    if attempt < self.max_retries:
+                        continue  # 재시도 후 다시 시도
+                    else:
+                        raise RuntimeError(f'HTTP {status}')
+    
+                self.cache[key] = data  # 성공 시 캐싱
+                return data
+            except Exception as e:
+                continue
+>       raise RuntimeError('Request failed after max retries')
+E       RuntimeError: Request failed after max retries
+
+api_client.py:26: RuntimeError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+3 failed, 5 passed in 0.04s
+",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: trend.png: missing
+Ministral-3-3B-Instruct-2512-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: invalid json (JSONDecodeError)
+Ministral-3-3B-Instruct-2512-Q4_K_M,D03,Data,25.0,,25.0,metrics 0/5; files 2/2; old_yield=missing; new_yield=missing; improvement_pp=missing; annual_scrap_saving_won=missing; recommend_new=missing,DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,K01,Critic,77.5,95.0,83.625,"required 3/6; forbidden=none; chars=624 | JUDGE: 실제 산출물은 원자료 기반으로 중대한 사실오류(전체 공장 불량률 확정, AI 단일 원인 주장, 연간 절감액 근거 부족)를 정확히 탐지했으며, severity 분류와 수정안이 적절합니다. 다만 '14% 검사시간 단축'의 인과관계에 대한 추가 설명이 생략되어 소폭 감점 처리되었습니다.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,K02,Critic,88.8,95.0,90.97,"required 3/4; forbidden=none; chars=1295 | JUDGE: 4개의 독립적 보안 문제를 정확히 식별함. SQL Injection(중대), 로그 미완료(고위험), 비밀번호 노출(중간), audit 테이블 수정 취약(중간)이 현실적인 시나리오와 구체적 수정 방향을 제시. 원자료 기반의 객관적 분석이며, PPT AUDIT 요건(객관성/정보 밀도) 충족. 단, audit 테이블에 'status' 및 'last_login_time' 추가 수정 방안은 원 코드에 없는 필드 변경을 암시해 일부 주관적 해석 가능.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,K03,Critic,85.0,65.0,78.0,"required 5/5; forbidden=none; chars=367 | JUDGE: 원자료에 따르면 Slide1의 '전체 공장 불량률 3.1%'은 파일럿 라인 수치를 오용했고, Slide2의 ROI/절감액은 산정 중임에도 '확정'으로 표기되어 사실오류 발생. Slide3의 '6개 라인 즉시 확대'는 검증 계획 미반영으로 의사결정 리스크 존재. 시각적 요소(차트/표) 부재로 정보밀도 낮음. 수정이 필요함.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,P01,PPT,80.3,78.0,79.83999999999999,"open=OK; slides=6/8; required=5/6; visuals=4/2,charts=2/0,tables=2/0; objective=30.0/40; forbidden=none; design=100.0/100 (weighted 25.0/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=78 | JUDGE: [objective cap 78; raw judge 80.0] PPT AUDIT shows 80.3/100 with perfect design score but missing source data visibility (defect/oee values not in charts). Slides 2-5 meet visual requirements, but slide 6 has low coverage (47.7%) and no visuals despite being the final decision slide. 2026 pilot scope is marked in slides 2/5, and two data visualizations exist. However, the final recommendation lacks explicit connection between conditions/risks and decision wording compared to audit's 'final_decision_with_conditions' flag.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,P02,PPT,52.0,60.0,53.599999999999994,"open=OK; slides=4/7; required=3/6; visuals=2/2,charts=1/1,tables=1/1; objective=12.0/40; forbidden=none; design=80.0/100 (weighted 20.0/25) sparse=[4] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 62.0] PPT AUDIT reveals critical errors: cumulative cash flow chart mismatch, incorrect payback calculation (3.29 vs reported 1/3/4 years), only 2/3 risks completed. Slide 4 is sparse with no content. Design issues include low coverage on slide 3 and missing takeaways. While visuals meet basic requirements, factual inaccuracies and incomplete elements hinder decision-making clarity.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,P03,PPT,79.5,60.0,75.6,"open=OK; slides=6/6; required=5/6; visuals=2/1,charts=1/0,tables=1/1; objective=21.4/40; forbidden=none; design=99.0/100 (weighted 24.8/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 79.0] PPT AUDIT indicates incomplete timeline events (1/5 expected) and missing direct trigger visibility despite content mentions. Action table has all rows but critical error flag exists. Design score is high (99), but required elements like full timeline and explicit direct trigger are lacking. Slides 3-5 address uncertainty and actions, but story flow is hindered by incomplete data visualization and sparse takeaways on key slides.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,R01,Research,91.0,85.0,88.89999999999999,"required 4/5; citations 13/4; forbidden=none; chars=941 | JUDGE: 최신 공고 기준으로 문서 우선순위를 올바르게 판단했으나, 평가 기준 섹션에서 '중소기업 자원 부족'이라는 근거는 원자료에 명시되지 않음. 충돌 정보(지원대상)와 일정 변경은 정확히 분리했으나, 예산 증액의 경우 사전안내 대비 수정사항을 [final_notice.txt:L4]만 인용해 [early_notice.txt:L3]도 함께 명기해야 함. 의사결정 요령의 '제휴 파트너 협력'은 원자료에 직접적 근거 없음. 기타 인용 형식과 구조는 적절함.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,R02,Research,92.5,65.0,82.875,"required 5/6; citations 5/5; forbidden=none; chars=584 | JUDGE: 필수조건 적용 오류: 원자료의 SLA(99.90%) 및 P1 응답시간(4시간) 기준을 산출물이 99.8%/12시간으로 왜곡해 잘못된 적합성 판단. Vendor A는 P1 8시간, Vendor B는 SLA 99.90%를 만족하지만 탈락 처리됨. 총비용 계산은 정확하나 필수조건 AND 조건 미준수로 인한 추천 일관성 결여.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,R03,Research,91.0,95.0,92.4,"required 4/5; citations 8/5; forbidden=none; chars=858 | JUDGE: 타임라인은 원자료 기반 정확한 시간순서 유지 [incident_log.txt:L1-L8]. 직접 트리거(분진 축적 + 청소 주기 과다)와 근본원인(냉각 불량/베어링 마찰 증가) 구분 명확. 확인 불가능 항목(베어링 진동값)을 명시적으로 표기 [maintenance_note.txt:L4]. 가능한 원인 2가지를 복수로 제시하고, 후속 검증조치(청소 주기 재설정/모니터링/데이터 수집 시스템 구축)는 구체적. 단, '보호정지 로그만으로 근본원인 단정 안됨' [manual.txt:L5]의 지침이 직접 트리거 분석에 반영되지 않아 소폭 감점.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,W01,Writer,77.5,85.0,81.625,"required 5/6; forbidden=none; chars=346 | JUDGE: 결론(조건부 승인)이 명확하고, 원자료 수치(투자비 4.2억, 불량손실 3억, 파일럿 감소율 22%)가 반영되었으나, '연간 0.64억원' 계산에서 3억 × 22% = 0.66억 원과 차이 발생. 파일럿 일반화 한계(1라인/6라인)와 불확실성 명시가 적절하며, 다음 단계(확장 테스트/데이터 분석)는 실행 가능. 다만 수치 정확도 미흡으로 인해 완벽한 일치를 기대하기 어려움.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,W02,Writer,85.0,85.0,85.0,"required 6/6; forbidden=none; chars=564 | JUDGE: 타임라인과 영향 분리, 직접/근본원인 구분, 확인되지 않은 수치(5,000명 이상) 사용은 원자료 기준 미충족. 재발방지 조치에 owner/검증 방법 명시 부재로 인해 일부 수정 필요. 전문적 문체 유지.",DONE,
+Ministral-3-3B-Instruct-2512-Q4_K_M,W03,Writer,78.6,85.0,82.12,"required 6/7; forbidden=none; chars=765 | JUDGE: 일반/긴급 변경 절차 분리 및 단계 명확화(사전/실행/검증/롤백) 완료. 감사 지적사항 중 '티켓 번호 할당', '승인자 분리', '백업 확인', '24시간 사후 승인'은 반영되었으나, 롤백 책임자 명시 및 작업자-승인자 분리 시나리오 구체성 부족. 체크리스트 형식은 실무 사용 가능하지만, 일부 단계(예: 복구 테스트 성공 기준)에 대한 세부 기준 미제시.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,C01,Coding,100.0,,100.0,"pytest passed=9 failed=0; tampered=[]; .........                                                                [100%]
+9 passed in 0.02s
+",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.27s
+",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,C03,Coding,0.0,,0.0,"pytest passed=0 failed=1; tampered=[]; portlib.import_module(module_name)
+C:\Users\<USER>\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1206: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1178: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1149: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+..\..\..\.venv\Lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:2: in <module>
+    from api_client import ApiClient
+E     File ""C:\AI\Benchmark_v7_2_2\runs\Ministral-3-8B-Reasoning-2512-Q6_K\C03\api_client.py"", line 31
+E       else:
+E            ^
+E   IndentationError: unindent does not match any outer indentation level
+=========================== short test summary info ===========================
+ERROR tests\test_api_client.py
+ERROR ..\..\..\fixtures\C03\_grader\test_hidden_api.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 0.12s
+",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: invalid json (JSONDecodeError); yearly_summary.csv: missing
+Ministral-3-8B-Reasoning-2512-Q6_K,D02,Data,89.3,,89.3,metrics 6/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=0.75 True; line_B_mttr_h=1.0 True; line_C_mttr_h=0.83 False; priority_line=B True,DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,D03,Data,70.0,,70.0,metrics 3/5; files 2/2; old_yield=96.0 False; new_yield=98.5 False; improvement_pp=2.5 True; annual_scrap_saving_won=45000000.0 True; recommend_new=True True,DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,K01,Critic,92.5,100.0,95.125,"required 5/6; forbidden=none; chars=1520 | JUDGE: 모든 중대한 사실오류(전체 불량률 일반화, AI 단일 원인 주장, 연간 절감 추론, 즉시 확대 도입)를 정확히 탐지했으며, severity 분류와 수정안이 source_data.txt의 내용과 일치. 인과 과장 구분 및 실행 가능한 수정 제안이 명확. 산출물에 없는 시각요소/표 없음.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,K02,Critic,66.2,60.0,64.03,required 1/4; forbidden=none; chars=1764 | JUDGE: 1) Hardcoded credentials issue references 'admin' user not present in auth.py (only PASSWORD variable exists). 2) Basic Auth/Request Body scenario invents requirements not mentioned in request.txt. 3) HTTPS vulnerability assumes network protocol details not shown in original materials. 4) Modification directions for 'authenticate()' function don't align with actual login() implementation in auth.py.,DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,K03,Critic,100.0,75.0,91.25,"required 5/5; forbidden=none; chars=607 | JUDGE: 원자료와 비교해 슬라이드 1/2/3에 명확한 사실오류가 존재하며, 의사결정 리스크(검증 미비 확대)와 시각적 정보 밀도 부족(텍스트 부족, 핵심 메시지 누락)이 지적됨. 다만 구체적인 수정 권고와 inspect_pptx 기반 분석이 포함되어 있어 일부 개선 필요.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,P01,PPT,80.3,60.0,76.24,"open=OK; slides=8/8; required=5/6; visuals=5/2,charts=3/0,tables=2/0; objective=22.0/40; forbidden=none; design=100.0/100 (weighted 25.0/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 78.0] PPT AUDIT indicates 2026 pilot scope clarification failure (3.1% defect rate not explicitly tied to pilot line in charts) and missing source data values in visuals. While design score is perfect, required data visualizations lack explicit pilot line context. Final recommendation includes conditions but lacks direct linkage between risks and decision criteria. Two data visualizations exist but fail to fully meet source accuracy requirements.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,P02,PPT,76.3,60.0,73.03999999999999,"open=OK; slides=4/7; required=5/6; visuals=3/2,charts=1/1,tables=2/1; objective=28.0/40; forbidden=none; design=100.0/100 (weighted 25.0/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 76.0] PPT AUDIT indicates critical table/chart errors (risk table missing 1 row, cumulative chart mismatch) and incomplete risk analysis. While payback period (3.3 years) matches data and design quality is strong, objective accuracy issues undermine decision-making clarity. Slides lack full alignment with source data requirements for cumulative cash flow visualization and risk completeness.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: most content slides lack takeaway
+Ministral-3-8B-Reasoning-2512-Q6_K,R01,Research,100.0,95.0,98.25,"required 5/5; citations 8/4; forbidden=none; chars=1177 | JUDGE: 최신 공고(final_notice.txt)를 정확히 식별하고 충돌 정보(예산/마감일/지원대상)를 명시적으로 분리함. 근거 인용이 주장과 연결되어 있으며, 의사결정에 필요한 요건(컨소시엄 구성, 예산 계획)과 리스크(사전안내와의 차이)가 빠짐없이 정리됨. 산출물에 없는 시각요소/표 없음. 단, '121억원' 계산 근거(공고 예산 - 자체부담)는 명시적 인용 없이 암시되어 소폭 수정 필요.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,R02,Research,80.0,95.0,85.25,"required 6/6; citations 0/5; forbidden=none; chars=896 | JUDGE: 모든 필수조건을 AND 조건으로 정확히 적용함. 2년 비용 계산이 정확하고, 탈락 사유가 요구조건과 직접 연결됨. 근거 인용도 파일명:L행 형식으로 충실하게 이행됨. Vendor C의 온프레미스 배포 불가 사항을 [vendor_C.txt#L4]로 명시한 점이 구체적임. 유일한 미비점은 '2억원 이하' 조건을 강조하기 위해 텍스트 포맷에 굵게 표기하는 등 시각적 계층 강화가 가능함.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,R03,Research,80.0,85.0,81.75,"required 5/5; citations 0/5; forbidden=none; chars=1875 | JUDGE: 타임라인은 원자료와 일치하며, 직접 트리거(온도 상승)와 근본원인(분진 축적) 구분이 명확하다. 그러나 '정기 윤활 미실행'이라는 근본원인은 유지보수 노트(L2)에 따르면 표준 절차대로 완료되었음을 명시하고 있어, 산출물에 없는 가정을 포함해 불확실성 표현이 부족하다. 다음 검증조치는 구체적이지만, '환경 요인'은 원자료에서 직접적인 근거가 없어 복수 가능성 언급 시 주의가 필요했다.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,W01,Writer,62.5,95.0,80.375,"required 1/6; forbidden=none; chars=1721 | JUDGE: 결론(조건부 승인)이 명확하고 원자료 수치(4.2억/0.6억/3.0억/22%)와 일치함. 파일럿 한계(단일 라인, 확장성 미검증)를 분명히 언급했으며, 재무효과 과장 없이 '비용 절감 잠재력'으로 표현. 다음 단계(6라인 확대 검증)는 실행 가능하며, 요청사항의 1페이지 제한을 준수. [PPT AUDIT] 기준으로 정보밀도와 스토리라인이 적절함.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,W02,Writer,100.0,95.0,97.25,"required 6/6; forbidden=none; chars=1429 | JUDGE: 타임라인과 영향이 명확히 분리되었으며, 직접원인/프로세스 원인 구분이 잘 이루어짐. 확인되지 않은 수치는 포함되지 않음. 재발방지 조치에 owner/검증 내용은 산출물에 없으나, 원자료에도 해당 정보가 없어 제외함. 전문적 문체 유지 및 섹션 구성 완비.",DONE,
+Ministral-3-8B-Reasoning-2512-Q6_K,W03,Writer,93.6,95.0,94.37,"required 6/7; forbidden=none; chars=1206 | JUDGE: 변경 요청 기록(티켓 번호), 승인자/작업자 분리, 사전 백업 확인, 롤백 책임 명확화 등 감사 지적 모두 반영. 일반/긴급 변경 절차 구분 및 단계별 체크리스트 제공으로 현장 사용성 확보. 다만 '실행 전 확인사항 (긴급)'에서 복구 테스트 생략 사항이 정확히 명시되어야 할 가능성이 있음.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,C01,Coding,0.0,,0.0,"pytest passed=0 failed=9; tampered=[]; ')
+        taxable = subtotal - discount
+        if member:
+            taxable -= subtotal * Decimal('0.05')
+>       decimal_total = Decimal(str(taxable)) * (1 + tax_rate)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: unsupported operand type(s) for *: 'decimal.Decimal' and 'float'
+
+pricing.py:12: TypeError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_no_discount - TypeError: unsupported opera...
+FAILED tests\test_pricing.py::test_volume_discount - TypeError: unsupported o...
+FAILED tests\test_pricing.py::test_member_after_volume_discount - TypeError: ...
+FAILED tests\test_pricing.py::test_member_only - TypeError: unsupported opera...
+FAILED tests\test_pricing.py::test_half_up_rounding - TypeError: unsupported ...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_threshold_below
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_empty_invoice
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_member_below_threshold
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+9 failed in 0.05s
+",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.25s
+",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,C03,Coding,12.5,,12.5,"pytest passed=1 failed=7; tampered=[]; _api.py:7: Failed
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_success_cached - RuntimeError: HTTP 200
+FAILED tests\test_api_client.py::test_500_retried_then_success - RuntimeError...
+FAILED tests\test_api_client.py::test_429_retried - IndexError: pop from empt...
+FAILED tests\test_api_client.py::test_404_not_retried - Failed: DID NOT RAISE...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+7 failed, 1 passed in 0.05s
+",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,D01,Data,100.0,,100.0,metrics 5/5; files 2/2; defect_rate_2024=0.053636363636363635 True; defect_rate_2025=0.04791666666666667 True; defect_rate_2026_pilot=0.0312 True; highest_downtime_line_all_years=B True; pilot_caveat=True True,DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,D02,Data,67.9,,67.9,metrics 4/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=45.0 False; line_B_mttr_h=30.0 False; line_C_mttr_h=25.0 False; priority_line=B True,DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,D03,Data,25.0,,25.0,metrics 0/5; files 2/2; old_yield=missing; new_yield=missing; improvement_pp=missing; annual_scrap_saving_won=missing; recommend_new=missing,DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,K01,Critic,100.0,95.0,98.25,"required 6/6; forbidden=none; chars=683 | JUDGE: 산출물은 원자료 기반으로 불량률 감소율 오류(38% vs 50%), AI 도입의 유일성 과장, 연간 절감액 근거 부족 등 중대한 사실오류를 모두 탐지했으며, severity 분류와 수정안이 정확함. 다만 '전사 확대 시'라는 표현을 그대로 유지해 '전체 공장 적용'에 대한 구체적 검증 필요성을 더 명시하는 것이 추가 개선 포인트일 수 있음.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,K02,Critic,88.8,95.0,90.97,"required 3/4; forbidden=none; chars=797 | JUDGE: 산출물은 원자료 기반으로 4개의 독립적 보안 문제를 정확히 식별함. 하드코딩 비밀번호, SQL 인젝션, 로그 출력, 권한 관리 부재가 현실적인 시나리오와 구체적 수정 방향을 제시함. 다만 '권한 관리 부재'의 경우 코드 내 역할 반환 메커니즘에 대한 명확한 설명이 부족해 severity 중간 수준 논리성이 약간 미흡. 나머지 문제는 모두 원자료와 일치하며, PPT AUDIT 기준에서 정보밀도 및 스토리라인 완성도가 높음.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,K03,Critic,85.0,65.0,78.0,"required 5/5; forbidden=none; chars=521 | JUDGE: 원자료에 따르면 2026년 불량률 3.1%는 파일럿 라인 수치이며, ROI/절감액은 산정되지 않았으나 PPT에 명시되어 사실오류 발생. 추진안 슬라이드는 검증 전 확대를 제안하지만 원자료는 추가 검증 계획으로 모순. 시각적 요소(차트/표) 부재 및 결론 미비로 정보밀도와 마무리 완성도 저하.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,P01,PPT,70.0,60.0,68.0,"open=OK; slides=6/8; required=6/6; visuals=4/2,charts=4/0,tables=0/0; objective=18.0/40; forbidden=none; design=100.0/100 (weighted 25.0/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 70.0] PPT AUDIT indicates critical issues: defect chart doesn't match source data (2026 defect rate shown as 3.1% instead of 0.031), second data visualization is missing, and final recommendation lacks explicit conditions/risks linkage. While design quality is strong, content accuracy and requirement fulfillment (e.g., 2026 pilot scope clarification) are insufficient for higher scoring.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,P02,PPT,54.9,60.0,55.92,"open=OK; slides=4/7; required=2/6; visuals=2/2,charts=1/1,tables=1/1; objective=12.0/40; forbidden=none; design=98.3/100 (weighted 24.6/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 62.0] PPT AUDIT reveals critical errors: cumulative cash flow chart mismatch (false), payback period miscalculation (3.29 vs reported 3 years), and incomplete risk table (2/3 rows). While design score is high (98.3) with proper visuals, objective accuracy failures (critical numeric/table/chart errors) undermine investment committee usability. Sparse slides and missing final decision linkages further reduce practical viability despite acceptable visual hierarchy.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,P03,PPT,90.8,90.0,90.64,"open=OK; slides=7/6; required=6/6; visuals=3/1,charts=2/0,tables=1/1; objective=35.2/40; forbidden=none; design=98.3/100 (weighted 24.6/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=100 | JUDGE: PPT AUDIT indicates all required elements (timeline, direct trigger, root cause uncertainty, action table) are present with no critical errors. Design score of 98.3 shows strong visual hierarchy and information density. Root cause uncertainty explicitly mentions missing vibration data as per brief. Action table has complete rows. Minor redundancy in Slide 7 exists but doesn't impact core requirements.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,R01,Research,91.0,85.0,88.89999999999999,"required 4/5; citations 4/4; forbidden=none; chars=495 | JUDGE: 산출물은 원자료 기반의 정확한 인용과 내용 전달을 완료했으나, '충돌 정보 명시적 분리' 요건에서 사전안내와 확정공고 간 예산(120억→135억) 및 마감일(4월30일→5월7일) 차이를 '변경'而非'충돌'로 처리해 충돌 요소가 누락됨. 또한 의사결정 리스크 항목에서 컨소시엄 구성 요구사항과 기술성 평가 기준 검토 필요성을 명시적으로 강조하지 않음.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,R02,Research,100.0,95.0,98.25,"required 6/6; citations 12/5; forbidden=none; chars=899 | JUDGE: 산출물은 요구사항과 원자료를 정확히 반영하여 필수조건 AND 적용, 비용 계산, 인용 충실성 모두 준수. Vendor A/B/C의 탈락/추천 근거가 명확하며, [vendor_C.txt:L4]에서 'SaaS 전용' 정보는 원자료에 정확히 기재됨. 다만 '공장망 내부 온프레미스' 표현과 같은 세부사항에서 약간의 해석 여지가 존재할 수 있어 완벽한 100점은 제외.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,R03,Research,91.0,95.0,92.4,"required 4/5; citations 12/5; forbidden=none; chars=820 | JUDGE: 타임라인은 원자료와 정확히 일치하며, 직접 트리거(분진 축적)와 근본원인(냉각 유량 저하 추정) 구분이 명확하다. 확인 불가능한 항목과 검증조치는 모두 원자료에 기반하여 작성되었고, '추정되나' 등의 표현으로 불확실성을 적절히 반영했다. 다만 '냉각 유량 저하'라는 구체적 원인을 제시하면서도 베어링 진동 데이터 누락을 명시해 근본원인 분석의 한계를 보여주는 점에서 높은 점수를 부여한다.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,W01,Writer,77.5,95.0,87.125,"required 5/6; forbidden=none; chars=424 | JUDGE: 결론이 경영진 관점에서 명확하게 시작되었고, 원자료의 수치(4.2억, 0.6억, 22%, 14%)가 정확히 반영됨. 불확실성 부분에서 파일럿의 단일 라인 한계를 명시하고, 전체 확정 효과에 대한 추가 분석을 요구함. 다음 단계도 실행 가능하며, 산출물에 없는 내용은 포함되지 않음. 다만 파일럿 기간(8주) 정보가 생략되어 소폭 감점.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,W02,Writer,85.0,85.0,85.0,"required 6/6; forbidden=none; chars=449 | JUDGE: 타임라인과 영향이 분리되고, 직접원인/근본원인 구분이 명확합니다. 그러나 재발방지 조치 섹션에 책임자(owner) 및 검증 방법이 누락되어 있습니다. 요청사항 중 'owner/검증 드러남' 요건을 부분적으로 충족하지 못해 5점 감점되었습니다. 나머지 항목은 원자료 기준에서 적절히 반영되었습니다.",DONE,
+Qwen2.5-14B-Instruct-Q5_K_M,W03,Writer,85.0,85.0,85.0,"required 7/7; forbidden=none; chars=534 | JUDGE: 일반/긴급 변경 절차 분리 및 단계 명확화(사전/실행/롤백)는 충족. 감사 지적 중 '티켓 번호 기록', '승인자-작업자 분리', '백업 확인'은 반영됨. 다만 '롤백 책임자 명시'와 '검증 단계 구체성'은 산출물에 명시되지 않음. 체크리스트 형식으로 실무 활용 가능하며, 정확한 개정 요구사항(정책.txt)을 반영함.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,C01,Coding,0.0,,0.0,"pytest passed=0 failed=1; tampered=[]; port_path
+    importlib.import_module(module_name)
+C:\Users\<USER>\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1206: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1178: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1149: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+..\..\..\.venv\Lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:1: in <module>
+    from pricing import calculate_invoice
+E     File ""C:\AI\Benchmark_v7_2_2\runs\Qwen2.5-Coder-14B-Instruct-Q5_K_M\C01\pricing.py"", line 13
+E       total = taxable * (1 + tax_rate)
+E   IndentationError: unexpected indent
+=========================== short test summary info ===========================
+ERROR tests\test_pricing.py
+ERROR ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 0.12s
+",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,C02,Coding,50.0,,50.0,"pytest passed=3 failed=3; tampered=[]; rolling_at_index_2 ___________________________
+
+    def test_rolling_at_index_2():
+        df = pd.DataFrame({'value':[10,20,30,1000]})
+        x = make_feature(df, 3)
+>       assert abs(float(x.loc[2,'ma']) - 20.0) < 1e-9
+E       assert 330.0 < 1e-09
+E        +  where 330.0 = abs((350.0 - 20.0))
+E        +    where 350.0 = float(np.float64(350.0))
+
+C:\AI\Benchmark_v7_2_1\runs\Qwen2.5-Coder-14B-Instruct-Q5_K_M\C02\tests\test_pipeline.py:13: AssertionError
+________________________ test_first_row_uses_only_self ________________________
+
+    def test_first_row_uses_only_self():
+        df=pd.DataFrame({'value':[5,50,500]})
+        x=make_feature(df,3)
+>       assert float(x.loc[0,'ma'])==5.0
+E       assert 27.5 == 5.0
+E        +  where 27.5 = float(np.float64(27.5))
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+3 failed, 3 passed in 0.29s
+",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,D01,Data,55.0,,55.0,metrics 2/5; files 2/2; defect_rate_2024=5.363636363636363 False; defect_rate_2025=4.791666666666667 False; defect_rate_2026_pilot=3.1199999999999997 False; highest_downtime_line_all_years=B True; pilot_caveat=True True,DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,D03,Data,25.0,,25.0,metrics 0/5; files 2/2; old_yield=missing; new_yield=missing; improvement_pp=missing; annual_scrap_saving_won=missing; recommend_new=missing,DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,K01,Critic,62.5,85.0,70.375,"required 3/6; forbidden=none; chars=228 | JUDGE: 중대한 사실오류(불량률 50% 감소 오류, 파일럿 범위 누락)와 근거 부재(20억원 절감 예측)를 탐지했으나, 계산 오류(5% → 3.1%는 38% 감소)에 대한 구체적 언급이 생략됨. AI 생산성 기여도의 인과 과장은 지적했으나, 수정안의 실행 가능성 명확성은 약간 부족함.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,K02,Critic,88.8,95.0,90.97,"required 3/4; forbidden=none; chars=2473 | JUDGE: 4개의 독립적 보안 문제를 정확히 식별함. 하드코딩 비밀번호, SQL 인젝션, 입력 검증 부재, 로깅 누락이 모두 원자료 기반으로 타당하며 시나리오와 수정 방향이 구체적임. severity 분류(고/중)도 합리적이며, 산출물에 없는 추가 요소 없이 객관적으로 검토됨.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,K03,Critic,76.0,75.0,75.65,"required 4/5; forbidden=none; chars=373 | JUDGE: 실제 산출물에 명시된 사실오류(슬라이드1/4)와 의사결정 리스크(슬라이드2/3)가 존재하며, 시각·가독성 문제(핵심 메시지 부재, 정보밀도 낮음)가 제시됨. 원자료 기준으로 수정이 필요한 사항이 확인되었으나, 슬라이드 구조와 핵심 내용 전달은 기본적으로 완성됨.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,P01,PPT,69.2,60.0,67.36,"open=OK; slides=8/8; required=2/6; visuals=2/2,charts=2/0,tables=0/0; objective=16.0/40; forbidden=none; design=99.3/100 (weighted 24.8/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 69.0] PPT AUDIT indicates critical issues: 2026 pilot scope not clearly marked in charts (2026_pilot_scope_with_3.1: false), source values absent from defect/OEE charts, and final recommendation lacks conditions/risks. While design score is high (99.3), objective errors (e.g., missing data precision, sparse takeaway slides) hinder decision-making clarity. Slides 3-4 lack exact KPI values in visuals, violating brief requirements. Last slide's recommendation is vague without explicit conditions.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,P02,PPT,88.0,70.0,84.4,"open=OK; slides=7/7; required=6/6; visuals=2/2,charts=1/1,tables=1/1; objective=28.0/40; forbidden=none; design=100.0/100 (weighted 25.0/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=70 | JUDGE: [objective cap 70; raw judge 88.0] PPT는 누적 현금흐름 차트와 리스크 표를 포함해 요구사항 충족. 그러나 회수시점(payback) 계산이 데이터 기준(3.29년)과 일치하지 않으며, 원자료에 없는 '단순 매출' 표현이 존재. 디자인 완성도는 높으나 숫자 정확성 문제로 88점 부여.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,P03,PPT,78.0,60.0,74.4,"open=OK; slides=6/6; required=6/6; visuals=0/1,charts=0/0,tables=0/1; objective=28.0/40; forbidden=none; design=80.0/100 (weighted 20.0/25) sparse=[4] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 78.0] PPT AUDIT indicates incomplete action table (0/3 rows filled) violating requirements. Slide 4 is sparse with minimal content. Root cause uncertainty is addressed but lacks visual differentiation. Timeline exists but no charts/tables shown. Design score is strong but critical action table error and sparse slides lower practical completeness.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,R01,Research,100.0,95.0,98.25,"required 5/5; citations 15/4; forbidden=none; chars=1065 | JUDGE: 산출물은 원자료 기반의 충돌 정보(예산/마감일)를 명확히 분리하고, 모든 주장에 [파일:L] 형식으로 근거를 부여했다. 의사결정 요인(기술성 평가 기준, 예산 한도)과 리스크(외부 메모의 과거 일정 인용 위험)를 모두 포함했으나, '팀 예산 한도 내 신청' 부분에서 확정 공고의 총예산 135억원 대비 자체부담 포함 14억원의 관계성이 약간 모호한 점이 있다. 다만 원자료에 없는 사실을 추가하지 않았으며, PPT AUDIT 기준으로도 정보 밀도와 구조가 적절하다.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,R02,Research,27.5,40.0,31.875,"required 2/6; citations 0/5; forbidden=Vendor A를 추천; chars=140 | JUDGE: 산출물은 Vendor A와 B만 언급했으나, 필수조건을 AND로 적용하지 않았음. Vendor A의 P1 최초응답(8시간)이 4시간 기준을 위반함에도 탈락 사유를 생략함. Vendor B는 모든 조건을 충족하나, 산출물에서 명시적 추천 근거가 부재함. 비용 계산은 정확하지만, 요구조건과의 직접적인 연결이 결여됨.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,R03,Research,82.0,95.0,86.55000000000001,"required 3/5; citations 8/5; forbidden=none; chars=767 | JUDGE: 타임라인은 원자료 기반 정확히 구성되었으며, 직접 트리거와 근본원인 구분이 명확합니다. 가능 원인(분진 축적/베어링 마찰)은 manual.txt L4에 근거한 복수 제시로 타당성 있음. 불확실성 항목은 maintenance_note.txt L5의 누락 데이터를 정확히 인용했고, 검증 조치는 구체적입니다. 다만 '냉각 유량 저하' 원인과 분진 축적 간 직접적인 상관관계에 대한 언급이 없어 약간의 추가 설명이 필요할 수 있습니다.",DONE,
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,W02,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: postmortem.md: missing
+Qwen2.5-Coder-14B-Instruct-Q5_K_M,W03,Writer,85.0,75.0,79.5,"required 7/7; forbidden=none; chars=502 | JUDGE: 일반/긴급 변경 절차 분리 및 감사 지적 반영(티켓번호, 백업, 24시간 사후승인)은 충족. 그러나 책임 흐름 명확성 부족(작업자-팀장 역할 중복 가능성), 롤백 기준 구체화 미비, 검증 단계 세부사항 누락. 체크리스트는 핵심 항목 포함했으나 실행 시점/방법에 대한 지침 부재.",DONE,
+Qwen3-30B-A3B-Q5_K_M,C01,Coding,100.0,,100.0,"pytest passed=9 failed=0; tampered=[]; .........                                                                [100%]
+9 passed in 0.02s
+",DONE,
+Qwen3-30B-A3B-Q5_K_M,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.25s
+",DONE,
+Qwen3-30B-A3B-Q5_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+Qwen3-30B-A3B-Q5_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; trend.png: missing
+Qwen3-30B-A3B-Q5_K_M,D02,Data,89.3,,89.3,metrics 6/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=0.75 True; line_B_mttr_h=1.0 True; line_C_mttr_h=0.83 False; priority_line=B True,DONE,
+Qwen3-30B-A3B-Q5_K_M,D03,Data,100.0,,100.0,metrics 5/5; files 2/2; old_yield=0.96 True; new_yield=0.985 True; improvement_pp=2.5 True; annual_scrap_saving_won=45000000.0 True; recommend_new=True True,DONE,
+Qwen3-30B-A3B-Q5_K_M,K01,Critic,77.5,95.0,83.625,"required 5/6; forbidden=none; chars=491 | JUDGE: 원자료에 명시된 파일럿 데이터 범위(1라인)와 전체 공장 성과 일반화 문제를 Critical로 탐지했으며, 불량률 감소율 계산 오류(50%→38%)를 High로 정확히 지적. AI 도입 효과 외 다른 요인(검사시간 단축)을 Medium으로 분석하고, 확대 적용 근거 부족을 Low로 구분. 산출물에 없는 시각자료/표를 가정하지 않음.",DONE,
+Qwen3-30B-A3B-Q5_K_M,K02,Critic,88.8,95.0,90.97,"required 3/4; forbidden=none; chars=753 | JUDGE: 4개의 독립적 보안 문제를 정확히 식별함. SQL 인젝션(로그인/audit), 평문 비밀번호, 입력 검증 부재가 현실적인 시나리오와 구체적 수정 방향을 제시함. severity 분류가 합리적이며, 원자료에 기반한 내용만 포함됨. 단, '입력 검증 부재'의 경우 시나리오 상세도를 더 강화할 수 있음.",DONE,
+Qwen3-30B-A3B-Q5_K_M,K03,Critic,100.0,95.0,98.25,"required 5/5; forbidden=none; chars=661 | JUDGE: 실제 산출물은 원자료와의 차이를 명확히 지적하며, 사실오류(3.1% 출처 미기재, ROI 산정 불확실성), 의사결정 리스크(데이터 기반 부족, 비용 공백), 시각 문제(차트 부재, 텍스트 밀도)를 구분해 분석. 개선 제안은 원자료 기준에 충실했으나, inspect_pptx 결과 활용이 불충분하고 'takeaway 누락' 등 구체적 시각 이슈 설명이 다소 간략함.",DONE,
+Qwen3-30B-A3B-Q5_K_M,P01,PPT,74.0,60.0,71.2,"open=OK; slides=8/8; required=5/6; visuals=4/2,charts=2/0,tables=2/0; objective=16.0/40; forbidden=none; design=98.6/100 (weighted 24.6/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 74.0] PPT AUDIT에 따르면 2026년 파일럿 라인 명시 미흡(2026_pilot_scope_with_3.1: false) 및 최종 권고 조건/리스크 부재(final_decision_with_conditions: false)로 핵심 요구사항 충족 불완전. 차트 시각화는 존재하지만 KPI.xlsx의 결함률 3.1%와 OEE 81%가 차트에 명시되지 않음. 마지막 슬라이드의 권고는 확대 여부 명시했으나 구체적 조건/리스크 연결 미흡.",DONE,
+Qwen3-30B-A3B-Q5_K_M,P02,PPT,87.4,75.0,84.92,"open=OK; slides=7/7; required=6/6; visuals=4/2,charts=1/1,tables=3/1; objective=28.0/40; forbidden=none; design=97.5/100 (weighted 24.4/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=75 | JUDGE: [objective cap 75; raw judge 87.0] PPT는 제공된 현금흐름 데이터를 기반으로 정확한 누적 현금흐름 차트와 리스크 표를 포함하며, 회수기간(Payback) 3.29년 계산이 올바르게 반영되었다. 그러나 [PPT AUDIT]에 따르면 누적 현금흐름 차트가 원본 데이터와 일치하지 않아 객관적 정확성에 약간의 오류가 존재한다. 또한 슬라이드 2, 5, 6의 정보밀도가 낮고, 최종 결론 페이지의 핵심 메시지 전달이 다소 부족해 설득력이 약화된다. 시각 계층과 마무리 완성도는 높으나, 일부 차트 오류와 스프레드 슬라이드로 인해 실무 제출 수준에서 수정이 필요하다.",DONE,
+Qwen3-30B-A3B-Q5_K_M,P03,PPT,88.3,60.0,82.64,"open=OK; slides=6/6; required=6/6; visuals=2/1,charts=0/0,tables=2/1; objective=29.6/40; forbidden=none; design=95.0/100 (weighted 23.8/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 88.0] PPT AUDIT indicates timeline events (4/5) and action rows (1/3) are incomplete, but design quality is strong (95.0). Slide 5 explicitly notes vibration data missing as root cause uncertainty per brief.md L3, and action table includes all three actions albeit with potential formatting issues. Visual hierarchy and takeaway clarity meet factory manager needs, but minor gaps in timeline coverage and action completeness require adjustments.",DONE,
+Qwen3-30B-A3B-Q5_K_M,R01,Research,91.0,95.0,92.4,"required 4/5; citations 9/4; forbidden=none; chars=502 | JUDGE: 산출물은 원자료 기반의 핵심 내용/충돌 항목/고려사항을 명확히 정리했으며, 모든 주장에 파일명:L행 형식으로 근거를 부여했다. 충돌 정보는 대비표 형태로 분리되지 않았으나, 텍스트 기반으로 명시적으로 표현되어 의사결정 유용성 확보. 내부 예산 한도와 외부 메모 경고 등 리스크 요소도 포함. 단, 시각 계층 구조가 제한적이라 PPT AUDIT에서 'sparse' 판정 가능성 있으나, 텍스트 기반의 정보밀도는 충분.",DONE,
+Qwen3-30B-A3B-Q5_K_M,R02,Research,92.5,95.0,93.375,"required 5/6; citations 11/5; forbidden=none; chars=902 | JUDGE: 모든 벤더의 필수조건 검토가 요구사항.txt 기준에 정확히 부합하며, 2년 총비용 계산도 정확함. 탈락 사유는 각 문서 라인 인용을 통해 명확하게 연결됨. Vendor B만이 모든 조건을 충족해 추천이 일관됨. 산출물에 없는 시각요소/표 없이 간결한 구조 유지.",DONE,
+Qwen3-30B-A3B-Q5_K_M,R03,Research,91.0,95.0,92.4,"required 4/5; citations 14/5; forbidden=none; chars=892 | JUDGE: 타임라인 정확성(incident_log.txt 기준), 직접 트리거와 근본원인 구분 명확, 불확실성(진동 데이터 누락/부하 상태) 적절히 표기. 가능 원인 3가지 복수 제시 및 manual.txt L4 인용. 검증조치는 구체적이고 maintenance_note.txt L2/L4 참조. [PPT AUDIT] 없음으로 객관성 확보.",DONE,
+Qwen3-30B-A3B-Q5_K_M,W01,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=306 | JUDGE: 결론이 경영진 관점에서 명확하게 앞에 위치하고, 원자료의 수치(4.2억, 0.6억, 3.0억, 22% 감소)가 정확히 반영됨. 불확실성 부분에서는 파일럿 적용 라인 수(1/6)와 효과 확대 가능성 부족을 명시하며, 요청사항의 '파일럿 일반화 한계' 요구를 충족함. 다음 단계는 실행 가능성이 있는 검증 과정으로 구성되었으나, 원자료에 없는 '기술적/운영적 리스크 평가' 항목은 약간의 추론이 포함됨.",DONE,
+Qwen3-30B-A3B-Q5_K_M,W02,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=545 | JUDGE: 타임라인과 영향이 명확히 분리되었으며, 직접 원인과 근본원인을 구분해 설명했다. 확인되지 않은 수치는 포함하지 않았고, 재발방지 조치에 대한 책임자/검증 방법은 원자료에 없어 제시하지 않음. 비난 없는 전문적 문체 유지.",DONE,
+Qwen3-30B-A3B-Q5_K_M,W03,Writer,78.6,85.0,82.12,"required 6/7; forbidden=none; chars=534 | JUDGE: 일반/긴급 변경 절차 분리 및 감사 지적 반영(1,2,4번)은 충분히 반영됨. 사전/실행/검증 단계는 체크리스트에 포함되나 롤백 기준 명확화(정책 4번)는 점검 항목으로만 제시되어 실무적 세부성 부족. 긴급변경 사후승인 기한(정책 5번)은 문서화 의무에만 언급되어 체크리스트에 반영되지 않음. 책임 흐름은 명확하지만 단계별 실행 절차가 체크리스트와 분리되어 있어 직관성 약간 저하됨.",DONE,
+Qwen3-4B-Q6_K,C01,Coding,100.0,,100.0,"pytest passed=9 failed=0; tampered=[]; .........                                                                [100%]
+9 passed in 0.02s
+",DONE,
+Qwen3-4B-Q6_K,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.24s
+",DONE,
+Qwen3-4B-Q6_K,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+Qwen3-4B-Q6_K,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: yearly_summary.csv: missing; trend.png: missing
+Qwen3-4B-Q6_K,D02,Data,89.3,,89.3,metrics 6/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=0.75 True; line_B_mttr_h=1.0 True; line_C_mttr_h=0.83 False; priority_line=B True,DONE,
+Qwen3-4B-Q6_K,D03,Data,25.0,,25.0,metrics 0/5; files 2/2; old_yield=missing; new_yield=missing; improvement_pp=missing; annual_scrap_saving_won=missing; recommend_new=missing,DONE,
+Qwen3-4B-Q6_K,K01,Critic,85.0,95.0,88.5,"required 6/6; forbidden=none; chars=499 | JUDGE: 중대한 사실오류(불량률 감소율, AI 유일 원인, 전사 확대 권장)를 모두 탐지했으며, 근거와 수정안이 source_data.txt에 정확히 기반했다. '20억원 절감'과 같은 산출물에 없는 내용은 검토 대상에서 제외함. severity 분류와 수정안의 구체성이 적절하다.",DONE,
+Qwen3-4B-Q6_K,K02,Critic,88.8,100.0,92.72,"required 3/4; forbidden=none; chars=946 | JUDGE: 산출물은 원자료에 명시된 4가지 독립적 보안 문제를 정확히 반영. 하드코딩 비밀번호, SQL 인젝션, 에러 핸들링 부재, 로그 민감데이터 노출이 현실적인 시나리오와 구체적 수정 방향을 포함. PPT AUDIT 요건 충족으로 객관성 및 정보 밀도 우수.",DONE,
+Qwen3-4B-Q6_K,K03,Critic,85.0,65.0,78.0,"required 5/5; forbidden=none; chars=561 | JUDGE: 원자료와 비교해 핵심 사실 오류(3.1% 전체 공장/ROI 산정 미비/검증 단계 누락)가 확인됨. 의사결정 리스크(피로트 데이터 과도 활용/검증 절차 생략) 및 시각적 요소 부족(요약문장 누락/정보 밀도 낮음)이 명시되었으나, 수정 권고사항이 구체적이지 않아 실무 완성도 부족. 산출물에 없는 차트/표는 언급하지 않음.",DONE,
+Qwen3-4B-Q6_K,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: most content slides lack takeaway
+Qwen3-4B-Q6_K,P02,PPT,87.8,60.0,82.24,"open=OK; slides=7/7; required=6/6; visuals=2/2,charts=1/1,tables=1/1; objective=28.0/40; forbidden=none; design=99.2/100 (weighted 24.8/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 87.8] PPT AUDIT indicates cumulative cash flow chart mismatch (cumulative_chart_matches_source: false) and incomplete risk table (risk_rows_complete: 2/3). Payback calculation (3.29년) matches source data but lacks explicit formula explanation. Design score is high (99.2) with clear takeaways and visual hierarchy, but critical table/chart errors and missing risk row reduce objective accuracy. Slides 2/4/7 show strong decision alignment while maintaining required information density.",DONE,
+Qwen3-4B-Q6_K,P03,PPT,94.5,60.0,87.60000000000001,"open=OK; slides=6/6; required=6/6; visuals=1/1,charts=0/0,tables=1/1; objective=36.0/40; forbidden=none; design=94.0/100 (weighted 23.5/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 94.0] PPT는 타임라인, 직접 트리거, 근본원인 불확실성, 조치계획을 명확히 분리하고, '진동 데이터 누락'에 대한 불확실성을 명시해 원자료 요구사항을 충족. 조치표는 실제 값으로 채워졌으며, 슬라이드별 핵심 메시지(예: 결론 및 다음 단계)가 명확. 시각 계층은 타임라인/표 등 적절한 요소로 정보밀도 유지. [PPT AUDIT]에 따른 오류 없이 완성도 높음.",DONE,
+Qwen3-4B-Q6_K,R01,Research,100.0,95.0,98.25,"required 5/5; citations 6/4; forbidden=none; chars=757 | JUDGE: 산출물은 원자료 기반의 충돌 정보(예산/마감일)를 명확히 분리하고, 모든 주장에 파일명:L행 형식으로 근거를 부여했다. 의사결정 요건(기술성 평가기준, 컨소시엄 검토)과 리스크(내부 예산 한도 vs 공고 기준)를ครบ차려서 정리했으나, '팀 예산'과 '공고 기준'의 충돌은 원자료에서 직접적인 비교 근거가 명확하지 않아 약간의 해석 여지가 존재함.",DONE,
+Qwen3-4B-Q6_K,R02,Research,92.5,95.0,93.375,"required 5/6; citations 14/5; forbidden=none; chars=1061 | JUDGE: 산출물은 요구조건 AND 조건을 정확히 적용하여 Vendor B만 추천함. 2년 비용 계산(15억/18억/12억)이 원자료 기준에 부합하며, 탈락 사유(예: Vendor A의 P1 응답시간 8h 초과, Vendor C의 온프레미스 미지원)가 요구조건과 직접 연결됨. 인용 충실성도 완벽함. 다만 '2억원 이하'라는 명시적 조건에 대해 산출물 내부에서 추가 설명이 없어 약간의 정보 밀도 부족이 있음.",DONE,
+Qwen3-4B-Q6_K,R03,Research,100.0,95.0,98.25,"required 5/5; citations 11/5; forbidden=none; chars=846 | JUDGE: 타임라인은 원자료의 L번호 정확히 인용하며 순서 오류 없음. 직접 트리거와 근본원인 구분 명확 (manual.txt 기준). 확인 불가능 항목(베어링 진동값)을 누락데이터로 명시. 가능한 근본원인 3가지를 복수로 제시하고, 다음 검증조치는 문서에 언급된 내용만 구체적으로 반영. 단, '냉각 유량 저하'의 근거(6주 경과)는 maintenance_note.txt:L3에 명시되어 있으나, 이와 관련된 직접적 증거(예: 냉각 효율 측정치)는 언급되지 않아 약간의 불확실성 남음.",DONE,
+Qwen3-4B-Q6_K,W01,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=480 | JUDGE: 결론(조건부 승인)이 명확하고, 원자료 숫자(4.2억/0.6억/3.0억/22% 감소)와 일치. 파일럿 한계(1라인/6라인)와 불확실성(효과 차이/단기성)을 정확히 반영. 다음 단계(전체 라인 확대/분석/재평가)가 실행 가능. 다만 '검사시간 14% 단축'은 operations.txt에 명시되어 있으나, 산출물에서 '파일럿 효과' 항목에 포함된 점을 고려해 추가 검증이 필요할 수 있음.",DONE,
+Qwen3-4B-Q6_K,W02,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=473 | JUDGE: 타임라인과 영향이 명확히 분리되었으며, 직접 원인과 근본원인이 구분됨. 확인되지 않은 수치는 포함되지 않음. 재발방지 조치는 내용은 있으나 owner/검증 방법은 생략됨. 전문적 문체 유지 및 요청사항의 필수 섹션 모두 포함.",DONE,
+Qwen3-4B-Q6_K,W03,Writer,55.0,95.0,77.0,"required 0/7; forbidden=none; chars=2012 | JUDGE: Revised SOP addresses all audit findings (ticketing, role separation, backup verification, rollback criteria, urgent approval deadline). Procedures separate regular/urgent changes with clear steps (pre-execution backup, rollback within 2h, 24h emergency approval). Checklists and responsibilities are explicitly defined. Minor improvement possible for aligning 'failure criteria' wording with policy.txt.",DONE,
+Qwen3-8B-Q6_K,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; ===================================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\Qwen3-8B-Q6_K\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+Qwen3-8B-Q6_K,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; .5))
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+        assert len(tr)==3 and len(va)==2 and len(te)==1
+>       assert set(tr.index)|set(va.index)|set(te.index)==set(df.index)
+E       assert {0, 1, 2, 3, 5} == {0, 1, 2, 3, 4, 5}
+E         
+E         Extra items in the right set:
+E         4
+E         Use -v to get more diff
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:19: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.31s
+",DONE,
+Qwen3-8B-Q6_K,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+Qwen3-8B-Q6_K,D01,Data,25.0,,25.0,metrics 0/5; files 2/2; defect_rate_2024=missing; defect_rate_2025=missing; defect_rate_2026_pilot=missing; highest_downtime_line_all_years=missing; pilot_caveat=missing,DONE,
+Qwen3-8B-Q6_K,D02,Data,100.0,,100.0,metrics 7/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=0.75 True; line_B_mttr_h=1.0 True; line_C_mttr_h=0.8333 True; priority_line=B True,DONE,
+Qwen3-8B-Q6_K,D03,Data,100.0,,100.0,metrics 5/5; files 2/2; old_yield=0.96 True; new_yield=0.985 True; improvement_pp=2.5 True; annual_scrap_saving_won=45000000.0 True; recommend_new=True True,DONE,
+Qwen3-8B-Q6_K,K01,Critic,85.0,95.0,88.5,"required 6/6; forbidden=none; chars=502 | JUDGE: 원자료에 명시된 2025년 불량률(5.0%)과 2026년 파일럿 결과(3.1%)를 기반으로 '50% 감소' 주장이 잘못 계산되었음을 정확히 지적함. AI 도입의 유일한 원인이라는 인과 관계 오류와 6개 라인 확대 도입 권장에 대한 근거 부족도 Critical/High 등급으로 적절히 분류됨. 산출물에 없는 추가 정보를 가정하지 않고, source_data.txt에 기반한 수정안 제시가 명확함.",DONE,
+Qwen3-8B-Q6_K,K02,Critic,77.5,95.0,83.625,"required 2/4; forbidden=none; chars=779 | JUDGE: 산출물은 원자료 기반으로 4개의 독립적 보안 문제를 정확히 식별함. 하드코딩된 비밀번호, SQL 인젝션, 입력 검증 부재, 감사 로그 수정 취약점이 현실적인 시나리오와 구체적 수정 방향을 제시함. 다만 'audit log vulnerability'은 SQL 인젝션과 중복될 수 있는 점에서 약간의 개선 여지가 있음.",DONE,
+Qwen3-8B-Q6_K,K03,Critic,100.0,75.0,91.25,"required 5/5; forbidden=none; chars=710 | JUDGE: 사실오류(슬라이드1/2/3)와 의사결정 리스크(검증 미비, 미확정 데이터 사용)가 명확히 지적되었으나, 시각적 요소 부재(차트/표=0) 및 핵심 메시지 누락(슬라이드2-4)으로 정보전달력이 제한됨. 디자인 점수 75/100은 산출물 기준에 부합함.",DONE,
+Qwen3-8B-Q6_K,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+Qwen3-8B-Q6_K,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+Qwen3-8B-Q6_K,P03,PPT,94.5,60.0,87.60000000000001,"open=OK; slides=6/6; required=6/6; visuals=2/1,charts=1/0,tables=1/1; objective=36.0/40; forbidden=none; design=94.0/100 (weighted 23.5/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 94.0] PPT AUDIT indicates all required elements (timeline, action table, root cause uncertainty) are present with high design quality. Slides effectively separate incident flow, direct triggers, and RCA uncertainties while linking actions to decision points. Visual hierarchy prioritizes key takeaways without overcrowding. Minor text coverage gaps in Slide 6 don't impact core message delivery. All audit criteria met with no critical errors.",DONE,
+Qwen3-8B-Q6_K,R01,Research,100.0,95.0,98.25,"required 5/5; citations 13/4; forbidden=none; chars=931 | JUDGE: 최신 공고 기준을 정확히 판단하고 충돌 항목을 표 형식으로 명시함. 모든 주장에 파일명:L행 형식의 근거 인용이 완료되었으며, 의사결정 요건(예산 한도/컨소시엄 요건/일정 리스크)을 모두 포함. 다만 '주의사항' 컬럼 내 '확정 공고 우선' 문구는 원문의 [vendor_memo.txt:L4] 인용이 아닌 회의록 내용으로 추론된 점, 표 테두리 미설정 등 세부 디자인 미흡이 있음.",DONE,
+Qwen3-8B-Q6_K,R02,Research,92.5,95.0,93.375,"required 5/6; citations 16/5; forbidden=none; chars=852 | JUDGE: 모든 벤더의 2년 총비용 계산이 정확하며, 요구조건(필수조건 AND 조건)을 정확히 적용했습니다. 탈락 사유가 각각의 요구사항과 직접 연결되었고, 인용 충실도가 높습니다. Vendor B만 모든 조건을 만족하여 추천된 점에서 일관성 있음. 다만, SLA 기준(99.90%)과 비교해 Vendor A/B의 SLA 값이 명확히 초과/충족되었음을 더 명시적으로 표현할 수 있었으나, 전체 구조는 완성도 높음.",DONE,
+Qwen3-8B-Q6_K,R03,Research,100.0,95.0,98.25,"required 5/5; citations 16/5; forbidden=none; chars=701 | JUDGE: 타임라인은 원자료의 시간순서를 정확히 반영하고 [파일:L] 인용이 일관됨. 직접 트리거와 근본원인 구분이 명확하며, 불확실성(진동 데이터 누락)과 복수 가능성(냉각/베어링/과부하)을 적절히 표현함. 다음 검증조치는 원자료에 기반한 구체적 행동으로 이어짐. 단, '보호정지 로그만으로 근본원인 단정 안됨' 문구가 산출물에 명시되지 않아 약간의 미비 존재.",DONE,
+Qwen3-8B-Q6_K,W01,Writer,77.5,85.0,81.625,"required 5/6; forbidden=none; chars=695 | JUDGE: 결론이 명확히 앞에 위치하고 수치 계산은 원자료와 일치합니다. 파일럿 일반화 한계(1라인 → 6라인)를 언급했으나, '2개 이상 라인 파일럿' 조건은 원자료에 없는 추가 요구사항입니다. 재무효과 계산(66,000만원)은 정확하지만, '비용 대비 110% 효과'는 원자료에 없는 비교 지표로, 불확실성 분리가 약간 미흡합니다. 다음 단계의 비용(0.8억원)과 기간(12주)은 원자료와 일치하지 않아 실행 가능성에 대한 의문이 남습니다.",DONE,
+Qwen3-8B-Q6_K,W02,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=612 | JUDGE: 타임라인과 영향 섹션 분리 및 직접/근본원인 구분 명확. 확인되지 않은 수치는 '정량적 데이터 미확보'로 표기해 원자료 기준 준수. 재발방지 조치에 owner/검증 내용은 산출물에 없으나, 요청사항에서 요구된 'owner/검증'이 반드시 포함되어야 하는지는 명시되지 않음. 전문적 문체 유지 및 시각 계층 구조 우수.",DONE,
+Qwen3-8B-Q6_K,W03,Writer,93.6,95.0,94.37,"required 6/7; forbidden=none; chars=829 | JUDGE: 일반/긴급 변경 절차가 명확히 분리되었으며, 사전/실행/검증/롤백 단계가 구조화되었습니다. 감사 지적사항(요청 기록 부재, 승인자 겸직, 백업 미확인, 롤백 책임 불명)이 정책 요구사항에 따라 통제로 전환되었고, 체크리스트 형식으로 현장 사용 가능합니다. 책임 흐름은 '요청자/승인자/운영자/보증자'로 명확히 구분되었습니다. 다만 긴급 변경 시 롤백 기준에 대한 세부 사항이 추가적으로 설명되면 더 완성도가 높아질 수 있습니다.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,C01,Coding,100.0,,100.0,"pytest passed=9 failed=0; tampered=[]; .........                                                                [100%]
+9 passed in 0.02s
+",DONE,
+Qwen_Qwen3-14B-Q4_K_M,C02,Coding,50.0,,50.0,"pytest passed=3 failed=3; tampered=[]; ______ test_rolling_at_index_2 ___________________________
+
+    def test_rolling_at_index_2():
+        df = pd.DataFrame({'value':[10,20,30,1000]})
+        x = make_feature(df, 3)
+>       assert abs(float(x.loc[2,'ma']) - 20.0) < 1e-9
+E       assert 330.0 < 1e-09
+E        +  where 330.0 = abs((350.0 - 20.0))
+E        +    where 350.0 = float(np.float64(350.0))
+
+C:\AI\Benchmark_v7_2_1\runs\Qwen_Qwen3-14B-Q4_K_M\C02\tests\test_pipeline.py:13: AssertionError
+________________________ test_first_row_uses_only_self ________________________
+
+    def test_first_row_uses_only_self():
+        df=pd.DataFrame({'value':[5,50,500]})
+        x=make_feature(df,3)
+>       assert float(x.loc[0,'ma'])==5.0
+E       assert 27.5 == 5.0
+E        +  where 27.5 = float(np.float64(27.5))
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+3 failed, 3 passed in 0.30s
+",DONE,
+Qwen_Qwen3-14B-Q4_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+Qwen_Qwen3-14B-Q4_K_M,D01,Data,25.0,,25.0,metrics 0/5; files 2/2; defect_rate_2024=missing; defect_rate_2025=missing; defect_rate_2026_pilot=missing; highest_downtime_line_all_years=missing; pilot_caveat=missing,DONE,
+Qwen_Qwen3-14B-Q4_K_M,D02,Data,100.0,,100.0,metrics 7/7; files 2/2; line_A_mtbf=180.0 True; line_B_mtbf=100.0 True; line_C_mtbf=146.0 True; line_A_mttr_h=0.75 True; line_B_mttr_h=1.0 True; line_C_mttr_h=0.833 True; priority_line=B True,DONE,
+Qwen_Qwen3-14B-Q4_K_M,D03,Data,25.0,,25.0,metrics 0/5; files 2/2; old_yield=missing; new_yield=missing; improvement_pp=missing; annual_scrap_saving_won=missing; recommend_new=missing,DONE,
+Qwen_Qwen3-14B-Q4_K_M,K01,Critic,70.0,95.0,78.75,"required 4/6; forbidden=none; chars=562 | JUDGE: 실제 산출물은 원자료에 명시된 '파일럿 라인' 데이터 오용, AI 기여도 과장, 비용 절감 근거 부족 등 중대한 사실오류를 모두 탐지했으며, 각 이슈의 severity 분류와 수정안이 정확함. PPT AUDIT 요건에 부합하는 객관적 분석만 수행하여 스토리라인과 의사결정 유용성이 높음.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,K02,Critic,77.5,95.0,83.625,"required 2/4; forbidden=none; chars=1114 | JUDGE: 산출물은 원자료 기반으로 4개의 독립적 보안 문제를 실현 가능한 시나리오와 구체적인 수정 방향으로 제시함. SQL Injection(2개), 하드코딩 인증, 비암호화 저장 등 실제 취약점 반영. Severity 분류가 합리적이며, 추가적인 가짜 취약점이나 시각 요소 없이 객관적 분석 수행. 단, 'audit log' 관련 SQLi와 일반 SQLi를 별도로 분리한 점에서 약간의 중복 가능성 존재.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,K03,Critic,85.0,95.0,88.5,"required 5/5; forbidden=none; chars=597 | JUDGE: 산출물은 원자료에 명시된 사실오류(슬라이드1/4의 파일럿 수치 오용, 슬라이드2/3의 미산정 지표 및 계획과 모순)를 정확히 식별했으며, 시각적 문제점(레이아웃 단조로움, 차트 부재)을 객관적으로 분석. 다만 'takeaway 없음' 등의 판단은 원자료에 명시되지 않은 기준으로, 일부 주관성 평가가 포함됨.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+Qwen_Qwen3-14B-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+Qwen_Qwen3-14B-Q4_K_M,P03,PPT,93.1,60.0,86.48,"open=OK; slides=6/6; required=5/6; visuals=1/1,charts=0/0,tables=1/1; objective=36.0/40; forbidden=none; design=95.0/100 (weighted 23.8/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 93.0] PPT 구조는 타임라인/직접 트리거/근본원인 불확실성/조치표를 명확히 분리했으며, 공장장이 핵심 정보를 빠르게 파악할 수 있도록 스토리라인이 체계적입니다. '진동 데이터 누락'에 대한 불확실성과 후속 조치 연결이 적절하며, 시각 계층(타임라인/표)과 정보밀도가 실무 수준을 충족합니다. 단, [PPT AUDIT]에서 지적된 'action_rows_complete' 2/3 및 'critical_action_table_error'로 인해 약간의 수정이 필요할 수 있습니다.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,R01,Research,100.0,100.0,100.0,"required 5/5; citations 9/4; forbidden=none; chars=585 | JUDGE: 산출물은 원자료 기반의 충돌 정보를 명확히 분리하고 모든 주장에 정확한 인용을 제공했습니다. 최신 공고 우선 원칙을 준수하며, 내부 예산 한도와 외부 메모 주석 등 의사결정 요건을ครบ게 정리했습니다. 추가 사실 창작 없이 문서 내용만 활용했으며, 구조적 명확성과 정보 밀도가 적절합니다.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,R02,Research,100.0,95.0,98.25,"required 6/6; citations 21/5; forbidden=none; chars=1131 | JUDGE: 모든 벤더의 필수조건 검증이 요구사항과 일치하며, 2년 총비용 계산이 정확함. Vendor A와 C의 탈락 사유가 각각 P1 응답시간 및 온프레미스 불가로 명시되어 있고, Vendor B는 모든 조건 충족. 인용 구조도 원자료와 일치. 다만 '구축비 별도 없음' 항목이 추가적인 검토 요소였으나, 요구사항에 포함되지 않아 오류 없음.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,R03,Research,100.0,95.0,98.25,"required 5/5; citations 16/5; forbidden=none; chars=999 | JUDGE: 타임라인은 원자료 기반 정확한 순서 유지([incident_log:L1-L8] 인용). 직접 트리거와 근본원인 구분 명확(보호정지 로직과 가능성 분석 분리). 확인 불가능 항목에서 [manual:L5]의 경고를 반영하며, 과부하 가능성은 manual.txt의 '복수 원인' 언급에 기반. 다만 [maintenance_note:L4]의 진동 데이터 누락을 '베어링 마찰 증가'로 직접 연결하지 않고 '확인 불가'로 명시해 불확실성 적절히 표현. 검증 조치는 구체적이고 실행 가능.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,W01,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=492 | JUDGE: 결론이 경영진 관점에서 명확하게 상단에 위치하고, 원자료 숫자(4.2억/0.6억/3.0억/22%/14%)가 정확히 반영됨. 파일럿 한계(1라인 기준)와 확장성 불확실성이 분명히 언급되었으며, 재무효과 과장 없이 '6.3년 회수 기간(확정적이지 않음)'으로 표현됨. 다음 단계는 실행 가능하고 구체적임. 다만 '파일럿 결과를 전체 공장 확정 효과처럼 쓰지 않는다'는 요청에 대해 직접적인 언급이 없어 약간의 개선 여지 있음.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,W02,Writer,77.5,95.0,87.125,"required 6/6; forbidden=피해액; chars=599 | JUDGE: 타임라인과 영향이 명확히 분리되었으며, 직접 원인/근본원인 구분이 적절히 이루어짐. 확인되지 않은 수치는 포함하지 않음. 재발방지 조치에 owner/검증 방법은 원자료에 없으므로 추가하지 않음. 전문적 문체 유지. 다만 '롤백 절차 문서화' 내용이 직접 원인에 포함되어 근본원인과의 구분이 약간 모호할 수 있음.",DONE,
+Qwen_Qwen3-14B-Q4_K_M,W03,Writer,93.6,95.0,94.37,"required 6/7; forbidden=none; chars=829 | JUDGE: 일반/긴급 변경 절차 분리(3장/4장), 사전/실행/검증/롤백 단계 명확화(체크리스트 형식), 감사 지적사항 전면 반영(티켓 기록, 역할 분리, 백업 검증, 롤백 책임자 명시, 긴급변경 24시간 내 사후승인). 체크리스트 형식으로 현장 사용 가능하며 책임 흐름(작업자/승인자 분리)이 명확. 단, '모니터링' 단계의 구체적 검증 기준은 산출물에 미비.",DONE,
+google_gemma-3-4b-it-Q5_K_M,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; =====================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\google_gemma-3-4b-it-Q5_K_M\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+google_gemma-3-4b-it-Q5_K_M,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; 
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+>       assert len(tr)==3 and len(va)==2 and len(te)==1
+E       assert (3 == 3 and 3 == 2)
+E        +  where 3 = len(        date  v\n0 2026-02-01  0\n1 2026-02-02  1\n2 2026-02-03  2)
+E        +  and   3 = len(        date  v\n2 2026-02-03  2\n3 2026-02-04  3\n4 2026-02-05  4)
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2, 3] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.29s
+",DONE,
+google_gemma-3-4b-it-Q5_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+google_gemma-3-4b-it-Q5_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+google_gemma-3-4b-it-Q5_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+google_gemma-3-4b-it-Q5_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; comparison.csv: missing; yield_chart.png: missing
+google_gemma-3-4b-it-Q5_K_M,K01,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: review.md: missing
+google_gemma-3-4b-it-Q5_K_M,K02,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: security_review.md: missing
+google_gemma-3-4b-it-Q5_K_M,K03,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: ppt_review.md: missing
+google_gemma-3-4b-it-Q5_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+google_gemma-3-4b-it-Q5_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+google_gemma-3-4b-it-Q5_K_M,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: missing
+google_gemma-3-4b-it-Q5_K_M,R01,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: research_brief.md: missing
+google_gemma-3-4b-it-Q5_K_M,R02,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: procurement_recommendation.md: missing
+google_gemma-3-4b-it-Q5_K_M,R03,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_brief.md: missing
+google_gemma-3-4b-it-Q5_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+google_gemma-3-4b-it-Q5_K_M,W02,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: postmortem.md: missing
+google_gemma-3-4b-it-Q5_K_M,W03,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: revised_sop.md: missing
+granite-3.3-8b-instruct-Q4_K_M,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; ==================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\granite-3.3-8b-instruct-Q4_K_M\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+granite-3.3-8b-instruct-Q4_K_M,C02,Coding,100.0,,100.0,"pytest passed=6 failed=0; tampered=[]; ......                                                                   [100%]
+6 passed in 0.25s
+",DONE,
+granite-3.3-8b-instruct-Q4_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+granite-3.3-8b-instruct-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+granite-3.3-8b-instruct-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+granite-3.3-8b-instruct-Q4_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; comparison.csv: missing; yield_chart.png: missing
+granite-3.3-8b-instruct-Q4_K_M,K01,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: review.md: missing
+granite-3.3-8b-instruct-Q4_K_M,K02,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: security_review.md: missing
+granite-3.3-8b-instruct-Q4_K_M,K03,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: ppt_review.md: missing
+granite-3.3-8b-instruct-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+granite-3.3-8b-instruct-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+granite-3.3-8b-instruct-Q4_K_M,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: missing
+granite-3.3-8b-instruct-Q4_K_M,R01,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: research_brief.md: missing
+granite-3.3-8b-instruct-Q4_K_M,R02,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: procurement_recommendation.md: missing
+granite-3.3-8b-instruct-Q4_K_M,R03,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_brief.md: missing
+granite-3.3-8b-instruct-Q4_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+granite-3.3-8b-instruct-Q4_K_M,W02,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: postmortem.md: missing
+granite-3.3-8b-instruct-Q4_K_M,W03,Writer,40.0,65.0,53.75,"required 0/7; forbidden=none; chars=648 | JUDGE: revised_sop.md 반영된 내용은 current_sop.txt의 원문을 그대로 복사한 상태이며, policy.txt의 요구사항(티켓번호/분리책임자/백업확인/롤백기준)은 단순 나열에 그침. audit_findings.txt에 명시된 감사 지적 사항(요청기록 미비/동일인 승인/백업증적 부재/롤백 책임 불명/긴급변경 기한 없음)은 개선사항으로 전환되지 않음. 현장 체크리스트 형식이 전혀 반영되지 않음.",DONE,
+granite-4.0-h-micro-Q4_K_M,C01,Coding,33.3,,33.3,"pytest passed=3 failed=6; tampered=[]; e_invoice([33333], 0.1, True)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:10: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       AssertionError: assert Decimal('1116.5') == 1117
+E        +  where Decimal('1116.5') = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_volume_discount - AssertionError: assert D...
+FAILED tests\test_pricing.py::test_member_after_volume_discount - AssertionEr...
+FAILED tests\test_pricing.py::test_member_only - AssertionError: assert Decim...
+FAILED tests\test_pricing.py::test_half_up_rounding - AssertionError: assert ...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_member_below_threshold
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+6 failed, 3 passed in 0.04s
+",DONE,
+granite-4.0-h-micro-Q4_K_M,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; 
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+>       assert len(tr)==3 and len(va)==2 and len(te)==1
+E       assert (3 == 3 and 3 == 2)
+E        +  where 3 = len(        date  v\n0 2026-02-01  0\n1 2026-02-02  1\n2 2026-02-03  2)
+E        +  and   3 = len(        date  v\n2 2026-02-03  2\n3 2026-02-04  3\n4 2026-02-05  4)
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2, 3] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.30s
+",DONE,
+granite-4.0-h-micro-Q4_K_M,C03,Coding,0.0,,0.0,"pytest passed=0 failed=1; tampered=[]; _module(module_name)
+C:\Users\<USER>\AppData\Local\Programs\Python\Python311\Lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen importlib._bootstrap>:1206: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1178: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1149: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:690: in _load_unlocked
+    ???
+..\..\..\.venv\Lib\site-packages\_pytest\assertion\rewrite.py:188: in exec_module
+    exec(co, module.__dict__)
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:2: in <module>
+    from api_client import ApiClient
+E     File ""C:\AI\Benchmark_v7_2_2\runs\granite-4.0-h-micro-Q4_K_M\C03\api_client.py"", line 12
+E       retry_count = 0
+E       ^^^^^^^^^^^
+E   IndentationError: expected an indented block after 'if' statement on line 10
+=========================== short test summary info ===========================
+ERROR tests\test_api_client.py
+ERROR ..\..\..\fixtures\C03\_grader\test_hidden_api.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 0.11s
+",DONE,
+granite-4.0-h-micro-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+granite-4.0-h-micro-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: mtbf.png: missing
+granite-4.0-h-micro-Q4_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: yield_chart.png: missing
+granite-4.0-h-micro-Q4_K_M,K01,Critic,62.5,95.0,73.875,"required 1/6; forbidden=none; chars=2558 | JUDGE: 산출물은 원자료 기반으로 중대한 사실오류(전체 불량률 과장, 비용 절감 근거 부재)를 정확히 탐지했으며, severity 분류와 수정안이 구체적이다. 다만 '50% 이상 감소' 주장에 대한 수치적 근거(2025년 대비 2026년 전체 불량률 비교 미제공)가 명시되지 않아 일부 세부사항 보완 필요",DONE,
+granite-4.0-h-micro-Q4_K_M,K02,Critic,51.2,40.0,47.28,"required 1/4; forbidden=none; chars=379 | JUDGE: 산출물은 단일 문제(Hardcoded Password)만 제시했으나, 요구사항(최소 4개 독립 문제)을 충족하지 못함. SQL 인젝션, 입력 검증 부재, 로그 노출 취약점 등 추가 문제를 식별해야 하지만 생략됨. 수정 방향도 구체성 부족.",DONE,
+granite-4.0-h-micro-Q4_K_M,K03,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: ppt_review.md: missing
+granite-4.0-h-micro-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: empty/incomplete table
+granite-4.0-h-micro-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: empty/incomplete table
+granite-4.0-h-micro-Q4_K_M,P03,PPT,30.5,60.0,36.4,"open=OK; slides=1/6; required=0/6; visuals=1/1,charts=1/0,tables=0/1; objective=0.0/40; forbidden=none; design=82.0/100 (weighted 20.5/25) sparse=[] empty_tables=0 dict_leaks=0; judge_cap=60 | JUDGE: [objective cap 60; raw judge 65.0] PPT AUDIT reveals critical errors: root cause uncertainty not explicitly stated (violates brief.md L3), direct trigger missing, action table incomplete (only 1/3 rows filled), and timeline events only partially represented (5 expected vs 4 present). While design score is 82 and visuals exist, core requirements for decision-making relevance and information density are compromised. Sparse slides and missing takeaway elements lower practical usability despite acceptable visual hierarchy.",DONE,
+granite-4.0-h-micro-Q4_K_M,R01,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: research_brief.md: missing
+granite-4.0-h-micro-Q4_K_M,R02,Research,65.0,75.0,68.5,"required 4/6; citations 0/5; forbidden=none; chars=1873 | JUDGE: The report correctly calculated 2-year costs and checked SLA/on-premise requirements but missed evaluating P1 response time (mandatory condition 4) for all vendors. Vendor A's 8-hour P1 response violates requirement L5, and Vendor B's 2-hour response meets it, but this critical criterion wasn't explicitly addressed in the evaluation. The recommendation lacks full adherence to AND conditions across all requirements.",DONE,
+granite-4.0-h-micro-Q4_K_M,R03,Research,47.0,68.0,54.349999999999994,"required 3/5; citations 0/5; forbidden=none; chars=510 | JUDGE: 타임라인은 원자료와 일치하지만 근본원인 분석에서 manual.txt L4의 '복수 원인 가능'을 반영하지 않음. 냉각 유량 저하/베어링 마찰 증가를 단일 원인으로 명시해 불확실성(예: 과부하 가능성)을 누락함. 유지보수 노트 L4의 베어링 진동 데이터 누락 사항을 언급하지 않음. 다음 검증조치는 전혀 기재되지 않음. KPI 차트는 원자료에 없는 시각요소로, PPT AUDIT에서 'dict-leak' 판정이 가능함.",DONE,
+granite-4.0-h-micro-Q4_K_M,W01,Writer,62.5,95.0,80.375,"required 1/6; forbidden=none; chars=1957 | JUDGE: Memo starts with clear 'Conditional Approval' conclusion as required. Financial figures (3.0bn/4.2bn) match finance.txt exactly. Operational limitations (single line/6 lines) are explicitly stated per operations.txt. Next steps include feasible verification conditions (feasibility study, budget approval). Minor nitpick: net benefit calculation assumes 8-week data scales to annual without explicit mention, but this aligns with original data's annual loss context.",DONE,
+granite-4.0-h-micro-Q4_K_M,W02,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: postmortem.md: missing
+granite-4.0-h-micro-Q4_K_M,W03,Writer,55.0,85.0,71.5,"required 0/7; forbidden=none; chars=1059 | JUDGE: Revised SOP addresses key requirements: separates standard/urgent changes, includes checklists for approval/workflow, incorporates backup/rollback criteria from policy.txt. Audit findings on ticketing, separation of roles, and urgent change deadlines are resolved. However, rollback responsibility details and explicit verification steps for emergency changes lack clarity compared to audit_findings.txt's specific gaps.",DONE,
+internlm3-8b-instruct-Q4_K_M,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; ====================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\internlm3-8b-instruct-Q4_K_M\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+internlm3-8b-instruct-Q4_K_M,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; 
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+>       assert len(tr)==3 and len(va)==2 and len(te)==1
+E       assert (3 == 3 and 3 == 2)
+E        +  where 3 = len(        date  v\n0 2026-02-01  0\n1 2026-02-02  1\n2 2026-02-03  2)
+E        +  and   3 = len(        date  v\n2 2026-02-03  2\n3 2026-02-04  3\n4 2026-02-05  4)
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2, 3] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.30s
+",DONE,
+internlm3-8b-instruct-Q4_K_M,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+internlm3-8b-instruct-Q4_K_M,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+internlm3-8b-instruct-Q4_K_M,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+internlm3-8b-instruct-Q4_K_M,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; comparison.csv: missing; yield_chart.png: missing
+internlm3-8b-instruct-Q4_K_M,K01,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: review.md: missing
+internlm3-8b-instruct-Q4_K_M,K02,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: security_review.md: missing
+internlm3-8b-instruct-Q4_K_M,K03,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: ppt_review.md: missing
+internlm3-8b-instruct-Q4_K_M,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+internlm3-8b-instruct-Q4_K_M,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+internlm3-8b-instruct-Q4_K_M,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: missing
+internlm3-8b-instruct-Q4_K_M,R01,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: research_brief.md: missing
+internlm3-8b-instruct-Q4_K_M,R02,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: procurement_recommendation.md: missing
+internlm3-8b-instruct-Q4_K_M,R03,Research,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_brief.md: missing
+internlm3-8b-instruct-Q4_K_M,W01,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: executive_memo.md: missing
+internlm3-8b-instruct-Q4_K_M,W02,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: postmortem.md: missing
+internlm3-8b-instruct-Q4_K_M,W03,Writer,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: revised_sop.md: missing
+phi-4-Q6_K,C01,Coding,77.8,,77.8,"pytest passed=7 failed=2; tampered=[]; ES ===================================
+______________________ test_member_after_volume_discount ______________________
+
+    def test_member_after_volume_discount():
+        # 100000 -> 90000 -> member 5% => 85500 -> tax 10% => 94050
+>       assert calculate_invoice([100000], 0.10, True) == 94050
+E       assert 93500 == 94050
+E        +  where 93500 = calculate_invoice([100000], 0.1, True)
+
+C:\AI\Benchmark_v7_2_1\runs\phi-4-Q6_K\C01\tests\test_pricing.py:11: AssertionError
+___________________ test_bankers_rounding_must_not_be_used ____________________
+
+    def test_bankers_rounding_must_not_be_used():
+        # 1015 * 1.10 = 1116.5 -> HALF_UP 1117, Python round() would choose 1116
+>       assert calculate_invoice([1015],0.10,False)==1117
+E       assert 1116 == 1117
+E        +  where 1116 = calculate_invoice([1015], 0.1, False)
+
+..\..\..\fixtures\C01\_grader\test_hidden_pricing.py:14: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pricing.py::test_member_after_volume_discount - assert 9350...
+FAILED ..\..\..\fixtures\C01\_grader\test_hidden_pricing.py::test_bankers_rounding_must_not_be_used
+2 failed, 7 passed in 0.04s
+",DONE,
+phi-4-Q6_K,C02,Coding,16.7,,16.7,"pytest passed=1 failed=5; tampered=[]; 
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:7: AssertionError
+__________________________ test_split_all_boundaries __________________________
+
+    def test_split_all_boundaries():
+        d=pd.date_range('2026-02-01',periods=6)
+        df=pd.DataFrame({'date':d,'v':range(6)})
+        tr,va,te=split_time(df,d[2],d[4])
+>       assert len(tr)==3 and len(va)==2 and len(te)==1
+E       assert (3 == 3 and 3 == 2)
+E        +  where 3 = len(        date  v\n0 2026-02-01  0\n1 2026-02-02  1\n2 2026-02-03  2)
+E        +  and   3 = len(        date  v\n2 2026-02-03  2\n3 2026-02-04  3\n4 2026-02-05  4)
+
+..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_pipeline.py::test_no_future_leakage - assert 5.0 < 1e-09
+FAILED tests\test_pipeline.py::test_rolling_at_index_2 - assert 330.0 < 1e-09
+FAILED tests\test_pipeline.py::test_disjoint_splits - assert [2, 3] == [3]
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_first_row_uses_only_self
+FAILED ..\..\..\fixtures\C02\_grader\test_hidden_pipeline.py::test_split_all_boundaries
+5 failed, 1 passed in 0.30s
+",DONE,
+phi-4-Q6_K,C03,Coding,50.0,,50.0,"pytest passed=4 failed=4; tampered=[]; ytest.raises(RuntimeError): ApiClient(tr,max_retries=5).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 6 == 1
+E        +  where 6 = len(['x', 'x', 'x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:8: AssertionError
+____________________ test_arbitrary_exception_not_retried _____________________
+
+    def test_arbitrary_exception_not_retried():
+        calls=[]
+        def tr(k):
+            calls.append(k)
+            raise ValueError('bad local input')
+        with pytest.raises(ValueError): ApiClient(tr,max_retries=3).get('x')
+>       assert len(calls)==1
+E       AssertionError: assert 4 == 1
+E        +  where 4 = len(['x', 'x', 'x', 'x'])
+
+..\..\..\fixtures\C03\_grader\test_hidden_api.py:16: AssertionError
+=========================== short test summary info ===========================
+FAILED tests\test_api_client.py::test_404_not_retried - AssertionError: asser...
+FAILED tests\test_api_client.py::test_failure_not_cached - AssertionError: as...
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_400_immediate
+FAILED ..\..\..\fixtures\C03\_grader\test_hidden_api.py::test_arbitrary_exception_not_retried
+4 failed, 4 passed in 0.04s
+",DONE,
+phi-4-Q6_K,D01,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; yearly_summary.csv: missing; trend.png: missing
+phi-4-Q6_K,D02,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; maintenance_summary.csv: missing; mtbf.png: missing
+phi-4-Q6_K,D03,Data,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: analysis.json: missing; comparison.csv: missing; yield_chart.png: missing
+phi-4-Q6_K,K01,Critic,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: review.md: missing
+phi-4-Q6_K,K02,Critic,77.5,95.0,83.625,"required 2/4; forbidden=none; chars=1193 | JUDGE: 4개의 독립적 보안 문제를 정확히 식별함. 하드코딩 비밀번호, SQL 인젝션(로그인/업데이트 쿼리), 로그 노출 취약점 모두 원자료에 명시된 내용이며, 시나리오와 수정 방향이 구체적임. PPT AUDIT 요건 충족으로 추가 오류 없음.",DONE,
+phi-4-Q6_K,K03,Critic,100.0,75.0,91.25,"required 5/5; forbidden=none; chars=708 | JUDGE: 원자료와 비교해 슬라이드 1/2/4에 사실 오류(전체 공장 수치/미산정 ROI/파일럿 기간 누락)가 존재하며, 의사결정 리스크(추진안 검증 부재) 및 시각적 요소 부족(차트/표 없음)이 지적됨. 'has_takeaway' 미설정과 디자인 점수 75로 정보 전달 한계가 명확함.",DONE,
+phi-4-Q6_K,P01,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: factory_ai_review.pptx: missing
+phi-4-Q6_K,P02,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: investment_committee.pptx: missing
+phi-4-Q6_K,P03,PPT,,,0.0,,ERROR,max_agent_steps reached; missing/invalid deliverables: incident_review.pptx: too many sparse slides (0.6)
+phi-4-Q6_K,R01,Research,100.0,95.0,98.25,"required 5/5; citations 9/4; forbidden=none; chars=952 | JUDGE: 산출물은 원자료 기반의 충돌 정보(예산/마감일 차이)를 명시적으로 분리하고, 모든 주장에 정확한 인용([파일:L행])을 적용했습니다. 내부 예산 한도와 신청 여부 결정 조건 등 의사결정 요건을 완전히 정리했으나, '외부 메모 주의사항' 섹션에서 충돌 원인(사전안내 vs 확정 공고)을 더 명확히 밝힐 수 있었습니다. 기타 내용은 요구사항을 모두 준수합니다.",DONE,
+phi-4-Q6_K,R02,Research,84.5,75.0,81.17500000000001,"required 5/6; citations 3/5; forbidden=none; chars=735 | JUDGE: 필수조건 AND 적용 및 비용계산에 오류 존재(_VENDOR_B의 2년 총비용 18,000만원은 요구사항 2억 이하 충족). 인용 정확성과 탈락사유 연결성은 유지됨. 결론 일관성은 있으나 계산오류로 인해 일부 수정 필요.",DONE,
+phi-4-Q6_K,R03,Research,91.0,95.0,92.4,"required 4/5; citations 14/5; forbidden=none; chars=1125 | JUDGE: 타임라인 정확성과 문서 인용 체계가 잘 유지됨. 직접 트리거(분진 축적)와 근본원인(냉각 유량 저하, 베어링 마찰 증가) 구분이 명확하며, 불확실성(베어링 진동 데이터 누락)을 적절히 반영함. 가능 원인을 복수로 고려하고 후속 검증 조치가 구체적임. 다만 manual.txt:L5의 '보호정지 로그만으로 근본원인 단정 금지' 문구를 '노트' 섹션에 명시하지 않고 간접적으로 표현한 점에서 약간의 개선 여지 있음.",DONE,
+phi-4-Q6_K,W01,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=467 | JUDGE: 결론이 경영진 관점에서 명확하게 앞에 위치하고, 원자료 숫자(4.2억, 0.6억, 3.0억, 22%, 8주)가 정확히 반영됨. 파일럿 한계(단일 라인/전체 라인 효과 가정 불가)와 불확실성 요소가 구체적으로 언급되었으며, 다음 단계의 실행 가능성(추가 파일럿/비용 분석)이 제시됨. 산출물에 없는 시각요소나 추가 내용이 없음.",DONE,
+phi-4-Q6_K,W02,Writer,85.0,95.0,90.5,"required 6/6; forbidden=none; chars=566 | JUDGE: 타임라인과 영향이 명확히 분리되었으며, 직접 원인(캐시 키 생성 함수 교체)과 근본원인(환경 차이/부하테스트 미실행)을 구분했다. 확인되지 않은 수치는 포함하지 않았으나, 재발방지 조치의 owner/검증 방법은 구체적으로 명시되지 않음. 전문적 문체 유지 및 원자료 기반 정보 완전성 확보.",DONE,
+phi-4-Q6_K,W03,Writer,93.6,85.0,88.87,"required 6/7; forbidden=none; chars=1008 | JUDGE: 일반/긴급 변경 절차 분리 및 단계 명확화(사전/실행/검증/롤백)는 충분히 반영됨. 감사 지적사항 중 '티켓 번호 필수', '승인자/작업자 분리', '백업 확인'은 SOP에 포함되었으나, '롤백 책임자 명확화'와 '긴급변경 사후승인 기한'은 제약 조건(24시간)만 언급되고 구체적 책임자는 생략됨. 체크리스트 형식은 사용 가능하지만, 긴급 변경 시 백업 절차가 '가능한 경우'로 약화되어 정책 요구사항(필수)과 차이 있음.",DONE,

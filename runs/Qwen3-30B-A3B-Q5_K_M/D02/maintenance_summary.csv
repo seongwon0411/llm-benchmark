@@ -1,0 +1,4 @@
+line,operating_hours,failures,repair_minutes,MTBF,MTTR
+A,720,4,180,180,0.75
+B,700,7,420,100,1.0
+C,730,5,250,146,0.83

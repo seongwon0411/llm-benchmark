@@ -1,0 +1,3 @@
+`source_data.txt`와 `flawed_report.md`를 대조해 중요한 오류를 검수한다.
+각 이슈에 severity(Critical/High/Medium/Low), 잘못된 주장, 근거, 수정안을 적는다.
+산출물: review.md

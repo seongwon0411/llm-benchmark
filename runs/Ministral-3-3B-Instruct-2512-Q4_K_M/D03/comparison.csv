@@ -1,0 +1,3 @@
+process,inspected,passed,pass_rate,scrap_cost
+old,1000,960,0.96,18000
+new,1000,985,0.985,18000

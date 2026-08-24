@@ -1,0 +1,23 @@
+{
+  "model_root": "C:\\AI\\Models",
+  "results_dir": "results",
+  "runs_dir": "runs",
+  "lmstudio_base_url": "http://127.0.0.1:1234",
+  "lmstudio_api_token": "",
+  "context_length": 16384,
+  "max_tokens_per_step": 3072,
+  "judge_max_tokens": 1800,
+  "temperature": 0.0,
+  "max_agent_steps": 12,
+  "request_timeout_sec": 240,
+  "load_timeout_sec": 240,
+  "tool_timeout_sec": 45,
+  "gpu_index": 0,
+  "poll_gpu_interval_sec": 0.25,
+  "hard_file_limit_gib": 23.0,
+  "judge_model_contains": "Qwen3-30B-A3B-Q5_K_M",
+  "judge_reference_max_chars": 12000,
+  "judge_artifact_max_chars": 22000,
+  "agent_history_char_budget": 22000,
+  "tool_context_max_chars": 9000
+}

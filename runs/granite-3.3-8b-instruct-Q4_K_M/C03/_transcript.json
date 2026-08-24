@@ -1,0 +1,12 @@
+[
+  {
+    "step": 1,
+    "assistant": {
+      "role": "assistant",
+      "content": "```python\n{\n  \"tool_call\": {\n    \"name\": \"list_files\",\n    \"arguments\": {\n      \"path\": \".\"\n    }\n  }\n}\n```",
+      "reasoning_content": "",
+      "tool_calls": []
+    },
+    "finish_reason": "stop"
+  }
+]

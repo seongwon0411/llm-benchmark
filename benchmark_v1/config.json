@@ -1,0 +1,28 @@
+{
+  "model_root": "C:\\AI\\Models",
+  "results_dir": "C:\\AI\\Benchmark\\results",
+  "lmstudio_base_url": "http://127.0.0.1:1234",
+  "lmstudio_api_token": "",
+  "context_length": 4096,
+  "judge_context_length": 4096,
+  "gpu_mode": "max",
+  "gpu_index": 0,
+  "max_estimated_vram_gib": 23.3,
+  "hard_file_limit_gib": 22.0,
+  "temperature": 0.0,
+  "max_tokens": 900,
+  "judge_max_tokens": 1200,
+  "request_timeout_sec": 240,
+  "load_timeout_sec": 300,
+  "poll_gpu_interval_sec": 0.2,
+  "judge_model_filename_contains": "Qwen3-30B-A3B-Q5",
+  "role_weights": {
+    "Research": 1.0,
+    "Coding": 1.0,
+    "Data": 1.0,
+    "Writer": 1.0,
+    "PPT": 1.0,
+    "Critic": 1.0
+  },
+  "hybrid_default_hard_weight": 0.4
+}

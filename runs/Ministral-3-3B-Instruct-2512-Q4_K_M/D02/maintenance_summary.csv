@@ -1,0 +1,4 @@
+"line","mTBF (hours)","repair_time (minutes)","risk_level"
+A",180,"180","low"
+B",100,"420","high"
+C",146,"250","medium"

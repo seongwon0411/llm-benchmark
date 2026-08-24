@@ -1,0 +1,7 @@
+﻿year,line,units_inspected,defects,downtime_min,pilot
+2024,A,1000,52,120,False
+2024,B,1200,66,180,False
+2025,A,1100,48,100,False
+2025,B,1300,67,160,False
+2026,A,600,18,70,True
+2026,B,650,21,90,True

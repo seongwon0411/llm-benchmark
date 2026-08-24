@@ -1,0 +1,7 @@
+{
+    "total_units_inspected": 5850,
+    "total_defects": 272,
+    "average_defect_rate": 0.044080419580419576,
+    "total_downtime_minutes": 720,
+    "pilot_lines_count": 2
+}

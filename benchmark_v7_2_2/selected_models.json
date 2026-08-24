@@ -1,0 +1,62 @@
+[
+  {
+    "display_name": "Ministral-3-8B-Reasoning-2512-Q6_K",
+    "reason": "Standard Overall 1위권, 저VRAM, Coding/Data 강점"
+  },
+  {
+    "display_name": "Qwen3-30B-A3B-Q5_K_M",
+    "reason": "대형 기준점, Research/Tool 강점"
+  },
+  {
+    "display_name": "Devstral-Small-2505-Q4_K_M",
+    "reason": "Coding/Data 강점"
+  },
+  {
+    "display_name": "Qwen_Qwen3-14B-Q4_K_M",
+    "reason": "PPT/Critic 강점"
+  },
+  {
+    "display_name": "Qwen3-8B-Q6_K",
+    "reason": "Research/Critic 강점, 효율 우수"
+  },
+  {
+    "display_name": "phi-4-Q6_K",
+    "reason": "Coding/Data 강점"
+  },
+  {
+    "display_name": "internlm3-8b-instruct-Q4_K_M",
+    "reason": "5GB대 범용 효율 후보"
+  },
+  {
+    "display_name": "granite-3.3-8b-instruct-Q4_K_M",
+    "reason": "Writer 강점"
+  },
+  {
+    "display_name": "Qwen2.5-14B-Instruct-Q5_K_M",
+    "reason": "Data/Writer/Critic 균형"
+  },
+  {
+    "display_name": "DeepSeek-R1-0528-Qwen3-8B-Q4_K_M",
+    "reason": "저VRAM reasoning/Data 후보"
+  },
+  {
+    "display_name": "Qwen3-4B-Q6_K",
+    "reason": "4GB급 Research/Tool 후보"
+  },
+  {
+    "display_name": "google_gemma-3-4b-it-Q5_K_M",
+    "reason": "4GB급 Writer/PPT 후보"
+  },
+  {
+    "display_name": "Ministral-3-3B-Instruct-2512-Q4_K_M",
+    "reason": "초소형 Coding/PPT/Tool 후보"
+  },
+  {
+    "display_name": "granite-4.0-h-micro-Q4_K_M",
+    "reason": "2.5GB급 Research/Data/Tool 후보"
+  },
+  {
+    "display_name": "Qwen2.5-Coder-14B-Instruct-Q5_K_M",
+    "reason": "전용 Coding 비교군"
+  }
+]

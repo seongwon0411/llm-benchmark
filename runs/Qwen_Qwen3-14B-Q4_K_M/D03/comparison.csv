@@ -1,0 +1,3 @@
+process,yield,scrap_rate,total_scrap_cost_won
+old,0.96,0.04,72000
+new,0.985,0.015,27000

@@ -1,0 +1,2 @@
+`source_brief.txt`와 실제 `flawed_deck.pptx`를 검수한다. `inspect_pptx` 도구를 사용해 슬라이드 구조/텍스트도 확인한다.
+사실오류, 의사결정 리스크, 시각/가독성 문제를 구분하여 `ppt_review.md`를 작성한다.

@@ -1,0 +1,17 @@
+{
+  "summary": {
+    "metrics": [
+      {"line": "A", "mTBF": 180, "risk": "low"},
+      {"line": "B", "mTBF": 100, "risk": "high"},
+      {"line": "C", "mTBF": 146, "risk": "medium""medium"}
+    ],
+    "avg_repair_time": 305,
+    "analysis": {
+      "high_risk_lines": ["B"],
+      "recommendations": [
+        "Line B의 MTBF 개선 필요",
+        "수리 시간 최적화"
+      ]
+    }
+  }
+}

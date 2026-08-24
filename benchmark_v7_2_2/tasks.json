@@ -1,0 +1,764 @@
+[
+  {
+    "id": "R01",
+    "role": "Research",
+    "title": "공고 최신성/충돌 검증 브리프",
+    "prompt": "workspace의 4개 문서를 모두 읽고 최신 확정 공고를 기준으로 신청 검토 브리프를 작성하라. 인용할 문서는 read_with_lines로 확인하라. 서로 충돌하는 숫자/일정을 명시하고 각 핵심 주장 뒤에 [파일명:L행] 형식의 근거를 붙여라. 산출물은 research_brief.md.",
+    "deliverables": [
+      "research_brief.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "135억원",
+          "135 억원"
+        ],
+        [
+          "2026-05-07",
+          "5월 7일",
+          "05-07"
+        ],
+        [
+          "확정 공고"
+        ],
+        [
+          "120억원",
+          "120 억원"
+        ],
+        [
+          "충돌",
+          "다름",
+          "구버전"
+        ]
+      ],
+      "citation_min": 4,
+      "forbidden": [
+        "마감 4월 30일로 확정",
+        "총예산 120억원으로 확정"
+      ],
+      "min_chars": 450,
+      "judge_rubric": [
+        "최신성과 문서 우선순위를 올바르게 판단",
+        "충돌 정보를 명시적으로 분리",
+        "근거 인용이 주장과 연결",
+        "의사결정에 필요한 요건/리스크를 빠짐없이 정리",
+        "없는 사실을 만들지 않음"
+      ]
+    }
+  },
+  {
+    "id": "R02",
+    "role": "Research",
+    "title": "3개 벤더 조달 적합성 평가",
+    "prompt": "요구조건과 Vendor A/B/C 문서를 읽고 각 벤더의 적합/탈락 근거를 계산해 procurement_recommendation.md를 작성하라. 인용할 문서는 read_with_lines로 확인하라. 2년 총비용을 직접 계산하고 모든 필수조건을 만족하는 후보만 추천하라. 핵심 주장마다 [파일명:L행] 인용.",
+    "deliverables": [
+      "procurement_recommendation.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "Vendor B",
+          "벤더 B"
+        ],
+        [
+          "1억 8천",
+          "1.8억원",
+          "1.8 억원",
+          "18000",
+          "180,000,000",
+          "180백만"
+        ],
+        [
+          "Vendor A",
+          "벤더 A"
+        ],
+        [
+          "8시간"
+        ],
+        [
+          "Vendor C",
+          "벤더 C"
+        ],
+        [
+          "온프레미스",
+          "SaaS"
+        ]
+      ],
+      "citation_min": 5,
+      "forbidden": [
+        "Vendor A를 추천",
+        "Vendor C를 추천"
+      ],
+      "min_chars": 500,
+      "judge_rubric": [
+        "필수조건을 AND 조건으로 정확히 적용",
+        "2년 비용 계산 정확",
+        "탈락 사유가 요구조건과 직접 연결",
+        "추천이 일관됨",
+        "근거 인용 충실"
+      ]
+    }
+  },
+  {
+    "id": "R03",
+    "role": "Research",
+    "title": "설비 사고 RCA 초동 분석",
+    "prompt": "incident_log.txt, manual.txt, maintenance_note.txt를 읽고 incident_brief.md를 작성하라. 인용할 문서는 read_with_lines로 확인하라. 타임라인, 직접 트리거, 가능한 근본원인, 확인 불가능한 항목, 다음 검증조치를 분리하고 [파일명:L행]을 인용하라. 상관관계를 근본원인 확정으로 과장하지 마라.",
+    "deliverables": [
+      "incident_brief.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "85",
+          "90"
+        ],
+        [
+          "보호정지"
+        ],
+        [
+          "분진"
+        ],
+        [
+          "진동",
+          "수집 누락"
+        ],
+        [
+          "근본원인",
+          "확정",
+          "단정"
+        ]
+      ],
+      "citation_min": 5,
+      "forbidden": [
+        "분진이 근본원인으로 확정",
+        "윤활 작업이 원인으로 확정"
+      ],
+      "min_chars": 550,
+      "judge_rubric": [
+        "직접 트리거와 근본원인 구분",
+        "시간순서 정확",
+        "불확실성/누락데이터 표현",
+        "가능 원인을 복수로 고려",
+        "후속 검증이 구체적"
+      ]
+    }
+  },
+  {
+    "id": "C01",
+    "role": "Coding",
+    "title": "청구 계산 로직 버그 수정",
+    "prompt": "README.md와 소스를 읽고 pricing.py를 수정하라. tests는 수정하지 말고 run_pytest 도구로 실제 검증하라. 모든 테스트가 통과해야 한다.",
+    "deliverables": [
+      "pricing.py"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "pytest",
+      "test_path": "tests",
+      "protected": [
+        "tests"
+      ]
+    }
+  },
+  {
+    "id": "C02",
+    "role": "Coding",
+    "title": "시계열 누수/분할 버그 수정",
+    "prompt": "README.md와 pipeline.py를 검토해 미래정보 누수와 split 경계 중복을 수정하라. tests 수정 금지. run_pytest로 검증하라.",
+    "deliverables": [
+      "pipeline.py"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "pytest",
+      "test_path": "tests",
+      "protected": [
+        "tests"
+      ]
+    }
+  },
+  {
+    "id": "C03",
+    "role": "Coding",
+    "title": "API 재시도/캐시 안정성 수정",
+    "prompt": "README.md 요구사항대로 api_client.py를 수정하고 run_pytest로 검증하라. 429/5xx만 재시도하고 실패는 캐시하지 않아야 한다. tests 수정 금지.",
+    "deliverables": [
+      "api_client.py"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "pytest",
+      "test_path": "tests",
+      "protected": [
+        "tests"
+      ]
+    }
+  },
+  {
+    "id": "D01",
+    "role": "Data",
+    "title": "공장 KPI 가중 분석",
+    "prompt": "README.md 지시를 수행하라. CSV를 Python으로 분석하고 analysis.json, yearly_summary.csv, trend.png를 실제 생성하라.",
+    "deliverables": [
+      "analysis.json",
+      "yearly_summary.csv",
+      "trend.png"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "data_json",
+      "json_file": "analysis.json",
+      "required_files": [
+        "yearly_summary.csv",
+        "trend.png"
+      ],
+      "metrics": {
+        "defect_rate_2024": {
+          "expected": 0.05363636,
+          "tol": 1e-05
+        },
+        "defect_rate_2025": {
+          "expected": 0.04791667,
+          "tol": 1e-05
+        },
+        "defect_rate_2026_pilot": {
+          "expected": 0.0312,
+          "tol": 1e-05
+        }
+      },
+      "equals": {
+        "highest_downtime_line_all_years": "B",
+        "pilot_caveat": true
+      }
+    }
+  },
+  {
+    "id": "D02",
+    "role": "Data",
+    "title": "MTBF/MTTR 정비 우선순위",
+    "prompt": "README.md 정의대로 분석해 analysis.json, maintenance_summary.csv, mtbf.png를 생성하라.",
+    "deliverables": [
+      "analysis.json",
+      "maintenance_summary.csv",
+      "mtbf.png"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "data_json",
+      "json_file": "analysis.json",
+      "required_files": [
+        "maintenance_summary.csv",
+        "mtbf.png"
+      ],
+      "metrics": {
+        "line_A_mtbf": {
+          "expected": 180.0,
+          "tol": 0.001
+        },
+        "line_B_mtbf": {
+          "expected": 100.0,
+          "tol": 0.001
+        },
+        "line_C_mtbf": {
+          "expected": 146.0,
+          "tol": 0.001
+        },
+        "line_A_mttr_h": {
+          "expected": 0.75,
+          "tol": 0.001
+        },
+        "line_B_mttr_h": {
+          "expected": 1.0,
+          "tol": 0.001
+        },
+        "line_C_mttr_h": {
+          "expected": 0.833333,
+          "tol": 0.001
+        }
+      },
+      "equals": {
+        "priority_line": "B"
+      }
+    }
+  },
+  {
+    "id": "D03",
+    "role": "Data",
+    "title": "공정 변경 수율/절감 분석",
+    "prompt": "README.md 기준으로 process_trial.csv를 분석하고 analysis.json, comparison.csv, yield_chart.png를 생성하라. 계산 가정을 추가하지 마라.",
+    "deliverables": [
+      "analysis.json",
+      "comparison.csv",
+      "yield_chart.png"
+    ],
+    "hard_weight": 1.0,
+    "grader": {
+      "type": "data_json",
+      "json_file": "analysis.json",
+      "required_files": [
+        "comparison.csv",
+        "yield_chart.png"
+      ],
+      "metrics": {
+        "old_yield": {
+          "expected": 0.96,
+          "tol": 0.0001
+        },
+        "new_yield": {
+          "expected": 0.985,
+          "tol": 0.0001
+        },
+        "improvement_pp": {
+          "expected": 2.5,
+          "tol": 0.001
+        },
+        "annual_scrap_saving_won": {
+          "expected": 45000000,
+          "tol": 1
+        }
+      },
+      "equals": {
+        "recommend_new": true
+      }
+    }
+  },
+  {
+    "id": "W01",
+    "role": "Writer",
+    "title": "경영진 투자 의사결정 메모",
+    "prompt": "finance.txt, operations.txt, request.txt를 읽고 executive_memo.md를 작성하라. 경영진이 3분 안에 의사결정할 수 있게 결론/근거/불확실성/다음 단계가 명확해야 한다.",
+    "deliverables": [
+      "executive_memo.md"
+    ],
+    "hard_weight": 0.45,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "4.2억원",
+          "4.2 억원"
+        ],
+        [
+          "0.6억원",
+          "0.6 억원"
+        ],
+        [
+          "22%"
+        ],
+        [
+          "8주"
+        ],
+        [
+          "파일럿"
+        ],
+        [
+          "조건부 승인",
+          "보류",
+          "승인"
+        ]
+      ],
+      "forbidden": [
+        "전체 공장에서도 22% 감소가 확정",
+        "연간 절감액이 확정"
+      ],
+      "min_chars": 700,
+      "max_chars": 2400,
+      "judge_rubric": [
+        "경영진 관점의 결론이 앞에 있음",
+        "수치가 원자료와 일치",
+        "파일럿 일반화 한계를 분명히 함",
+        "재무효과를 과장하지 않음",
+        "다음 검증/의사결정 조건이 실행 가능"
+      ]
+    }
+  },
+  {
+    "id": "W02",
+    "role": "Writer",
+    "title": "운영 장애 사후보고서",
+    "prompt": "timeline.txt, change.txt, request.txt를 읽고 postmortem.md를 작성하라. 비난보다 재현 가능한 원인/조치 중심으로 작성한다.",
+    "deliverables": [
+      "postmortem.md"
+    ],
+    "hard_weight": 0.45,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "09:11"
+        ],
+        [
+          "09:18"
+        ],
+        [
+          "09:24"
+        ],
+        [
+          "캐시 키"
+        ],
+        [
+          "운영 트래픽",
+          "키 분포"
+        ],
+        [
+          "롤백"
+        ]
+      ],
+      "forbidden": [
+        "피해액",
+        "고객 100",
+        "고객 수"
+      ],
+      "min_chars": 850,
+      "max_chars": 3000,
+      "judge_rubric": [
+        "타임라인과 영향이 분리됨",
+        "직접원인/프로세스 원인을 구분",
+        "확인되지 않은 영향 수치를 만들지 않음",
+        "재발방지 조치에 owner/검증이 드러남",
+        "비난 없는 전문적 문체"
+      ]
+    }
+  },
+  {
+    "id": "W03",
+    "role": "Writer",
+    "title": "변경관리 SOP 개정",
+    "prompt": "current_sop.txt, audit_findings.txt, policy.txt, request.txt를 읽고 revised_sop.md를 작성하라. 실제 작업자가 체크리스트로 사용할 수 있어야 한다.",
+    "deliverables": [
+      "revised_sop.md"
+    ],
+    "hard_weight": 0.45,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "티켓"
+        ],
+        [
+          "승인자",
+          "작업자"
+        ],
+        [
+          "백업"
+        ],
+        [
+          "복구 테스트",
+          "복구"
+        ],
+        [
+          "롤백"
+        ],
+        [
+          "24시간"
+        ],
+        [
+          "긴급변경"
+        ]
+      ],
+      "citation_min": 0,
+      "min_chars": 800,
+      "max_chars": 3200,
+      "judge_rubric": [
+        "일반/긴급 변경 절차가 분리됨",
+        "사전/실행/검증/롤백 단계가 명확",
+        "감사 지적을 실제 통제로 변환",
+        "현장 체크리스트로 바로 사용 가능",
+        "책임/승인 흐름이 모호하지 않음"
+      ]
+    }
+  },
+  {
+    "id": "P01",
+    "role": "PPT",
+    "title": "공장 AI 성과/확대 검토 실제 PPT",
+    "prompt": "brief.md와 factory_kpi.xlsx를 확인하고 create_pptx를 사용해 실제 factory_ai_review.pptx 8장을 생성하라. 2026 수치는 파일럿 라인임을 숫자와 같은 슬라이드에서 명확히 표시하고, 최소 2개 데이터 시각화와 경영진용 핵심 takeaway를 구성하라. 마지막 장에는 확대 도입에 대한 명확한 권고와 조건/리스크를 연결하라. inspect_pptx로 표/차트 데이터와 정보밀도를 검수하고 빈 슬라이드나 일반론만 있는 슬라이드는 수정하라.",
+    "deliverables": [
+      "factory_ai_review.pptx"
+    ],
+    "hard_weight": 0.8,
+    "grader": {
+      "type": "pptx",
+      "file": "factory_ai_review.pptx",
+      "exact_slides": 8,
+      "required_groups": [
+        [
+          "파일럿"
+        ],
+        [
+          "3.1%",
+          "3.1 %"
+        ],
+        [
+          "5.2%",
+          "5.2 %"
+        ],
+        [
+          "4.8%",
+          "4.8 %"
+        ],
+        [
+          "확대",
+          "도입"
+        ],
+        [
+          "리스크",
+          "조건"
+        ]
+      ],
+      "forbidden": [
+        "2026년 전체 공장 불량률 3.1%"
+      ],
+      "min_visuals": 2,
+      "judge_rubric": [
+        "경영진이 30초 안에 성과·범위·확대 판단을 이해할 수 있는 스토리라인",
+        "슬라이드별 핵심 takeaway와 정보 계층이 명확하고 과도한 공백/텍스트 나열이 없음",
+        "차트·표·KPI 카드의 선택이 메시지를 빠르게 전달하며 실제 임원 보고 수준의 정보밀도를 가짐",
+        "마지막 권고가 확대 여부와 조건/리스크를 의사결정 문장으로 명확히 연결"
+      ]
+    }
+  },
+  {
+    "id": "P02",
+    "role": "PPT",
+    "title": "투자심의 실제 PPT",
+    "prompt": "brief.md와 investment_case.xlsx를 사용해 실제 investment_committee.pptx 7장을 만들어라. 누적 cash flow와 payback을 제공 데이터로 정확히 계산하고 최소 1개 차트, 3개 리스크가 실제 값으로 채워진 1개 리스크 표를 포함하라. 각 슬라이드에 핵심 takeaway를 두고 빈 공간만 많은 페이지를 피하며, 마지막 장에는 근거와 연결된 명확한 투자 권고/조건을 제시하라. create_pptx로 파일을 만들고 inspect_pptx의 표 셀/차트 데이터/정보밀도 진단을 보고 필요하면 수정하라.",
+    "deliverables": [
+      "investment_committee.pptx"
+    ],
+    "hard_weight": 0.8,
+    "grader": {
+      "type": "pptx",
+      "file": "investment_committee.pptx",
+      "exact_slides": 7,
+      "required_groups": [
+        [
+          "420",
+          "4.2"
+        ],
+        [
+          "payback",
+          "회수"
+        ],
+        [
+          "리스크"
+        ],
+        [
+          "파일럿 일반화"
+        ],
+        [
+          "교육"
+        ],
+        [
+          "센서"
+        ]
+      ],
+      "forbidden": [
+        "IRR 20%",
+        "IRR 30%",
+        "IRR 확정"
+      ],
+      "min_visuals": 2,
+      "min_charts": 1,
+      "min_tables": 1,
+      "judge_rubric": [
+        "투자심의위원이 30초 안에 경제성·핵심 리스크·최종 권고를 이해할 수 있는 스토리라인",
+        "각 슬라이드가 한 가지 핵심 메시지를 갖고 숫자·차트·표가 메시지에 맞게 배치됨",
+        "리스크/완화책과 경제성 근거가 의사결정에 직접 연결되고 일반론으로 끝나지 않음",
+        "실제 투자심의 제출물 수준의 시각 계층·가독성·정보밀도·마무리 완성도"
+      ]
+    }
+  },
+  {
+    "id": "P03",
+    "role": "PPT",
+    "title": "사고 리뷰 실제 PPT",
+    "prompt": "brief.md와 incident_metrics.xlsx를 사용해 실제 incident_review.pptx 6장을 만들어라. 사건 타임라인, 직접 트리거, 근본원인의 불확실성을 구분하고, Action 원자료의 action/owner/due가 실제 값으로 채워진 조치표를 포함하라. 각 슬라이드의 핵심 takeaway와 공장장 보고용 정보밀도를 갖추고 원인을 과도하게 단정하지 마라. create_pptx 후 inspect_pptx로 표 셀/타임라인/빈 슬라이드 여부를 검수하고 수정하라.",
+    "deliverables": [
+      "incident_review.pptx"
+    ],
+    "hard_weight": 0.8,
+    "grader": {
+      "type": "pptx",
+      "file": "incident_review.pptx",
+      "exact_slides": 6,
+      "required_groups": [
+        [
+          "14:02"
+        ],
+        [
+          "14:07"
+        ],
+        [
+          "분진"
+        ],
+        [
+          "진동"
+        ],
+        [
+          "불확실",
+          "미확정",
+          "추가 검증"
+        ],
+        [
+          "조치"
+        ]
+      ],
+      "forbidden": [
+        "분진이 근본원인으로 확정"
+      ],
+      "min_visuals": 1,
+      "min_tables": 1,
+      "judge_rubric": [
+        "공장장이 사건 흐름·직접 트리거·RCA 상태·조치를 빠르게 구분할 수 있는 스토리라인",
+        "타임라인과 조치표가 읽기 쉽고 슬라이드별 핵심 메시지가 명확함",
+        "불확실성과 후속조치가 의사결정/관리 포인트로 연결되어 일반론에 머물지 않음",
+        "실제 사고 리뷰 보고 수준의 시각 계층·가독성·정보밀도·완성도"
+      ]
+    }
+  },
+  {
+    "id": "K01",
+    "role": "Critic",
+    "title": "성과보고서 사실/논리 감사",
+    "prompt": "request.txt 지시대로 source_data.txt와 flawed_report.md를 검토해 review.md를 작성하라.",
+    "deliverables": [
+      "review.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "파일럿",
+          "전체 공장"
+        ],
+        [
+          "3.1%"
+        ],
+        [
+          "38%",
+          "38.0%",
+          "38 %",
+          "약 38"
+        ],
+        [
+          "유일한 원인",
+          "인과"
+        ],
+        [
+          "20억원",
+          "근거"
+        ],
+        [
+          "추가 검증"
+        ]
+      ],
+      "min_chars": 600,
+      "judge_rubric": [
+        "중대한 사실오류를 빠짐없이 탐지",
+        "severity가 영향에 비례",
+        "정정값/근거가 정확",
+        "인과 과장을 구분",
+        "실행 가능한 수정안"
+      ]
+    }
+  },
+  {
+    "id": "K02",
+    "role": "Critic",
+    "title": "인증코드 프로덕션 보안 리뷰",
+    "prompt": "request.txt와 auth.py를 검토해 security_review.md를 작성하라. 최소 4개의 독립 문제를 severity/시나리오/수정방향으로 정리한다.",
+    "deliverables": [
+      "security_review.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "SQL injection",
+          "SQL 인젝션",
+          "파라미터"
+        ],
+        [
+          "하드코딩",
+          "admin123",
+          "비밀번호"
+        ],
+        [
+          "로그",
+          "password",
+          "평문"
+        ],
+        [
+          "트랜잭션",
+          "commit",
+          "rollback",
+          "원자성"
+        ]
+      ],
+      "min_chars": 650,
+      "judge_rubric": [
+        "보안 취약점이 독립적으로 구분",
+        "공격/장애 시나리오가 현실적",
+        "수정 방향이 구체적",
+        "severity가 합리적",
+        "불필요한 가짜 취약점 최소화"
+      ]
+    }
+  },
+  {
+    "id": "K03",
+    "role": "Critic",
+    "title": "실제 PPT 사실/가독성 리뷰",
+    "prompt": "source_brief.txt와 flawed_deck.pptx를 비교한다. inspect_pptx를 반드시 사용하고 ppt_review.md를 작성하라. 사실오류/의사결정 리스크/시각·가독성 문제를 구분한다.",
+    "deliverables": [
+      "ppt_review.md"
+    ],
+    "hard_weight": 0.65,
+    "grader": {
+      "type": "text",
+      "required_groups": [
+        [
+          "파일럿",
+          "전체 공장"
+        ],
+        [
+          "ROI",
+          "180%",
+          "근거"
+        ],
+        [
+          "20억원",
+          "근거"
+        ],
+        [
+          "추가",
+          "2개 라인",
+          "검증"
+        ],
+        [
+          "가독성",
+          "글자",
+          "폰트"
+        ]
+      ],
+      "min_chars": 600,
+      "judge_rubric": [
+        "원자료와 슬라이드 사실오류 비교",
+        "의사결정에 미치는 위험 설명",
+        "시각/가독성 이슈를 별도 분류",
+        "구체적 수정 권고",
+        "inspect 결과를 활용"
+      ]
+    }
+  }
+]

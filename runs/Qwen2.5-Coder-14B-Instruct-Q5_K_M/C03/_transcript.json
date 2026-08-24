@@ -1,0 +1,59 @@
+[
+  {
+    "step": 1,
+    "assistant": {
+      "role": "assistant",
+      "content": "TOOL_CALL {\"name\":\"list_files\",\"arguments\":{\"path\":\".\"}}",
+      "reasoning_content": "",
+      "tool_calls": []
+    },
+    "finish_reason": "stop"
+  },
+  {
+    "tool_mode": "text-fallback",
+    "tool": "list_files",
+    "arguments": {
+      "path": "."
+    },
+    "result": {
+      "ok": true,
+      "files": [
+        "api_client.py",
+        "README.md",
+        "tests/test_api_client.py"
+      ]
+    }
+  },
+  {
+    "step": 2,
+    "assistant": {
+      "role": "assistant",
+      "content": "TOOL_CALL {\"name\":\"read_text\",\"arguments\":{\"path\":\"api_client.py\"}}",
+      "reasoning_content": "",
+      "tool_calls": []
+    },
+    "finish_reason": "stop"
+  },
+  {
+    "tool_mode": "text-fallback",
+    "tool": "read_text",
+    "arguments": {
+      "path": "api_client.py"
+    },
+    "result": {
+      "ok": true,
+      "path": "api_client.py",
+      "content": "class ApiClient:\n    def __init__(self, transport, max_retries=2):\n        self.transport = transport\n        self.max_retries = max_retries\n        self.cache = {}\n\n    def get(self, key):\n        if key in self.cache:\n            return self.cache[key]\n        last = None\n        for _ in range(self.max_retries + 1):\n            try:\n                status, data = self.transport(key)\n                if status >= 400:\n                    raise RuntimeError(f'HTTP {status}')\n                self.cache[key] = data\n                return data\n            except Exception as e:\n                last = e\n                # BUG: retries every 4xx and arbitrary exception\n                continue\n        # BUG: failed result is cached as None\n        self.cache[key] = None\n        raise last\n"
+    }
+  },
+  {
+    "step": 3,
+    "assistant": {
+      "role": "assistant",
+      "content": "TOOL_CALL {\"name\":\"edit_file\",\"arguments\":{\"path\":\"api_client.py\",\"changes\":[{\"action\":\"replace\",\"old_text\":\"if status >= 400:\",\"new_text\":\"if 429 <= status < 500 or status >= 500:\"},{\"action\":\"replace\",\"old_text\":\"self.cache[key] = None\",\"new_text\":\"raise last\"]}}}",
+      "reasoning_content": "",
+      "tool_calls": []
+    },
+    "finish_reason": "stop"
+  }
+]

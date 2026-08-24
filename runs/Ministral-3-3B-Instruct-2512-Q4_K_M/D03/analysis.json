@@ -1,0 +1,2 @@
+[{"process":"old","inspected":1000,"passed":960,"pass_rate":0.96,"scrap_cost":18000},
+{"process":"new","inspected":1000,"passed":985,"pass_rate":0.985,"scrap_cost":18000}]

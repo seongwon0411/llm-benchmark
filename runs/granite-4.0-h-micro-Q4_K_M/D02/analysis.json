@@ -1,0 +1,8 @@
+{
+  "line_A_mtbf": 2.0,
+  "line_B_mtbf": 1.0,
+  "line_C_mtbf": 0.5,
+  "line_A_mttr_h": 1.67,
+  "line_B_mttr_h": 1.67,
+  "priority_line": "Line C"
+}

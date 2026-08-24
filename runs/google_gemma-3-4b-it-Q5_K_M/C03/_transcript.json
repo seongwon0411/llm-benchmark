@@ -1,0 +1,12 @@
+[
+  {
+    "step": 1,
+    "assistant": {
+      "role": "assistant",
+      "content": "```tool_code\n# List files in the workspace to identify relevant files.\nlist_files\n```",
+      "reasoning_content": "",
+      "tool_calls": []
+    },
+    "finish_reason": "stop"
+  }
+]
