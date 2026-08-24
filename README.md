@@ -284,6 +284,7 @@ llm-benchmark/
 ## Documentation
 
 - [Benchmark Methodology](docs/methodology.md)
+- [Benchmark Analysis](docs/analysis.md)
 - [Hardware & Environment](docs/hardware.md)
 - [Benchmark Version Differences](docs/benchmark_versions.md)
 - [Evaluated Models](docs/models.md)
